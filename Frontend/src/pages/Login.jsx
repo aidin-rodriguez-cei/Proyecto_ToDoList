@@ -1,39 +1,37 @@
-import { useState } from "react";
+// src/pages/Login.jsx (o la ruta correspondiente)
+import React from 'react';
+import { useUser } from '../hooks/useUser'; // Importa el hook useUser
 
 const Login = () => {
-    const [formData, setFormData] = useState({
-        username:"",
-        password:"",
-        // Info del backend 
-        name:  "Aidin",
-        image: "https://picsum.photos/200"
-    });
+  const { login } = useUser(); // Obtén la función login desde el contexto
 
-    const handleChange = (e) => {
-        const {name, value} = e.target;
-        setFormData({
-            ...formData,
-            [name] : value
-        });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const username = e.target.username.value;
+    const password = e.target.password.value;
 
-    };
+    login({ username }) // Usa la función login desde el contexto
+      .then(() => {
+        alert('Inicio de sesión exitoso');
+        window.location.href = '/'; // Redirigir al inicio (ajusta si necesitas otro comportamiento)
+      })
+      .catch(() => {
+        alert('Error al iniciar sesión');
+      });
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formData);
-    };
+  return (
+    <form onSubmit={handleSubmit}>
+      <h2>Iniciar Sesión</h2>
+      <label>Usuario</label>
+      <input type="text" name="username" required />
+      <label>Contraseña</label>
+      <input type="password" name="password" required />
+      <button type="submit">Iniciar Sesión</button>
+    </form>
+  );
+};
 
-    return (  
-        <form onSubmit={handleSubmit}
-        className="flex flex-col gap-4"
-        >
-        <h1>Soy Login</h1>
-        
-        <input onChange={handleChange} value={formData.username} type="email" name="username" placeholder="Usuario" requeried/>
-        <input onChange={handleChange} value={formData.password} type="password" name="password" placeholder="Clave" requeried/>
-        <input onChange={handleChange} type="submit" name="Login" />
-
-        </form>
-    );
-}
 export default Login;
+
+
