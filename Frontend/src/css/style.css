@@ -1,0 +1,321 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  position: relative;
+  overflow: scroll;
+}
+
+body {
+  font-family: 'Nunito', 'Public Sans', sans-serif;
+  background-color: #f3f3f3;
+  font-size: 16px;
+  margin-bottom: 85px;
+}
+
+header {
+  background-color: #b7d9db;
+  width: 100%;
+  padding: 20px;
+  min-width: 300px;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  font-family: 'Nunito', 'Public Sans', sans-serif;
+}
+
+/* BACKGROUND */
+
+.section-back {
+  text-align: center;
+  width: 100%;
+  margin: 20% auto 10px;
+}
+
+.header-name {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.back {
+  text-align: center;
+  background-image: url('/icons/yoga.png');
+  width: 28%;
+  min-width: 100px;
+  margin: 0 auto;
+  min-height: 180px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-bottom: 5px;
+}
+
+/* TASK LIST */
+.tasks {
+  width: 80%;
+  min-height: 100px;
+  margin: 10px auto 10px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 1px 3px 10px 1px #aaa;
+}
+
+/* Task Item */
+.task-item {
+  width: 100%;
+  margin-top: 10px;
+  padding: 25px 10px;
+  background-color: #f3f3f3;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.task-item:hover {
+  background: #ddd;
+}
+
+
+.completed {
+  text-decoration: line-through;
+  background: #BDBDBD;
+  padding: 8px 8px;
+}
+
+.high-priority {
+  border-left: 3px solid rgb(250, 101, 126);
+}
+
+.medium-priority {
+  border-left: 3px solid rgb(235, 200, 134);
+}
+
+.low-priority {
+  border-left: 3px solid rgb(134, 210, 134);
+}
+
+.task-item > * {
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+.borrar {
+  margin-left: 10px;
+}
+
+.task-item i {
+  font-size: 1.3em;
+}
+
+.task-item > label {
+  flex-grow: 2;
+  margin: 0px 14px;
+}
+
+i:hover {
+  color: #434343;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + label {
+  cursor: pointer;
+}
+
+/* Empty Tasks */
+.empty-tasks {
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+  padding: 20px 0;
+}
+
+.empty-tasks i {
+  font-size: 3em;
+  color: #aaa;
+}
+
+/* FORM */
+
+textarea {
+  resize: none;
+}
+
+#form {
+  width: 40%;
+  min-width: 300px;
+  margin: 20px auto 100px;
+  background-color: #fcfcfc;
+  padding: 15px 30px 15px;
+  box-shadow: 1px 4px 10px 1px #aaa;
+  border-radius: 10px;
+  z-index: 2;
+}
+
+#form h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+#form input[type=text], #form select, #form option, #form textarea {
+  display: block;
+  background-color: #f3f3f3;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 15px;
+}
+
+#form input[type=text], #form select, #form option {
+  height: 32px;
+}
+
+#form option {
+  font-size: 1.1em;
+}
+
+#form textarea {
+  width: 100%;
+}
+
+#form label {
+  color: #777;
+  font-size: 0.8em;
+}
+
+#form .btnAdd {
+  display: block;
+  margin: 20px auto 0;
+  width: 150px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  color: black;
+  font-weight: 700;
+  box-shadow: 1px 4px 10px 1px #aaa;
+  background: #b7d9db;
+  z-index: 3;
+  font-size: 16px;
+}
+
+#form .cerrar button {
+  float: right;
+  position: relative;
+  right: -10px;
+  top: -4px;
+  font-size: 1.5em;
+}
+
+.custom-radios div {
+  display: inline-block;
+}
+
+.custom-radios div input {
+  display: none;
+}
+
+.custom-radios div label span {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  margin: 5px 5px 5px 0;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  line-height: 21px;
+}
+
+.custom-radios label span img {
+  opacity: 0;
+  transition: all 0.1s ease;
+}
+
+#color-1 + label span {
+  background-color: #434343;
+}
+
+#color-2 + label span {
+  background-color: rgb(134, 210, 134);
+}
+
+#color-3 + label span {
+  background-color: rgb(235, 200, 134);
+}
+
+#color-4 + label span {
+  background-color: rgb(250, 101, 126);
+}
+
+input:checked + label span img {
+  opacity: 1;
+}
+
+input:checked + label span {
+  opacity: 1;
+  border: 2px solid #434343;
+  display: inline-flex; 
+  justify-content: center; 
+  align-items: center; 
+}
+
+
+/* FOOTER */
+
+footer {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  height: 75px;
+}
+
+footer button {
+  float: right;
+  margin-right: 30px;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+footer img {
+  width: 55px;
+  height: 55px;
+}
