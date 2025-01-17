@@ -6,7 +6,7 @@ const TaskForm = ({ onClose }) => {
   const [form, setForm] = useState({
     titulo: "",
     descripcion: "",
-    categoria: "work",
+    categoria: "",
     prioridad: 0,
   });
 
@@ -34,7 +34,7 @@ const TaskForm = ({ onClose }) => {
     setForm({
       titulo: "",
       descripcion: "",
-      categoria: "work",
+      categoria: "",
       prioridad: 0,
     });
   };
