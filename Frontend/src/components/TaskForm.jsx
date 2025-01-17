@@ -133,7 +133,7 @@ const TaskForm = ({ onClose, taskToEdit }) => {
           ))}
         </div>
         <button type="submit" className="btnAdd">
-          {taskToEdit ? "Guardar cambios" : "Agregar"}
+          {taskToEdit ? "Guardar" : "Agregar"}
         </button>
       </form>
     </section>

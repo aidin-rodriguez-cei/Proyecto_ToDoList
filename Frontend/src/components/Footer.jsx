@@ -11,7 +11,7 @@ const Footer = ({ onAddTask }) => {
 
       {/* Información del pie de página */}
       <p className="mt-4 text-center text-sm">
-        © 2025 To Do List - Todos los derechos reservados
+        © 2025 To do List - Aidin Rodriguez 
       </p>
     </footer>
   );
