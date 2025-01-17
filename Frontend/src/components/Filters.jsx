@@ -16,7 +16,7 @@ const Filters = ({ onFilter }) => {
   };
 
   return (
-    <div className="filters">
+    <div className="filters task-dark">
       <select name="category" value={filter.category} onChange={handleChange}>
         <option value="">Todas las categorías</option>
         <option value="work">Trabajo</option>

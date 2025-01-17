@@ -9,10 +9,10 @@ const TaskItem = ({ task, index, onToggle, onDelete, onEdit }) => {
   // Función para obtener el icono basado en la categoría de la tarea
     const getCategoryIcon = (category) => {
         switch (category) {
-          case "work":
-            return <FontAwesomeIcon icon={faBriefcase} title="Trabajo" />;
           case "personal":
             return <FontAwesomeIcon icon={faCoffee} title="Personal" />;
+          case "work":
+            return <FontAwesomeIcon icon={faBriefcase} title="Trabajo" />;
           case "home":
             return <FontAwesomeIcon icon={faHome} title="Doméstica" />;
           case "fun":
@@ -24,18 +24,18 @@ const TaskItem = ({ task, index, onToggle, onDelete, onEdit }) => {
 
 
       return (
-        <div className={`task-item ${prioClass} ${completed ? "completed" : ""}`}>
+        <div className= {`task-item ${prioClass} ${completed ? "completed" : ""} task-dark`}>
           {/* Icono de categoría de tarea */}
           {getCategoryIcon(categoria)}
           
           {/* Información de la tarea */}
-          <label>
+          <label className="task-dark">
             <h3>{titulo}</h3>
             <small>{descripcion}</small>
           </label>
           
           {/* Checkbox para marcar la tarea como completada */}
-          <div className="borrar">
+          <div className="borrar task-dark">
             <input 
               type="checkbox" 
               checked={completed} 
@@ -52,11 +52,11 @@ const TaskItem = ({ task, index, onToggle, onDelete, onEdit }) => {
           </div>
           
           {/* Iconos de eliminación */}
-          <div className="borrar" onClick={() => onDelete(index)}>
+          <div className="borrar task-dark" onClick={() => onDelete(index)}>
             <FontAwesomeIcon icon={faTrashCan} title="Eliminar" />
           </div>
           {/* Iconos de edición */}
-          <div className="borrar" onClick={() => onEdit(task, index)}>
+          <div className="borrar task-dark" onClick={() => onEdit(task, index)}>
             <FontAwesomeIcon icon={faPen} title="Editar" />
           </div>
         </div>

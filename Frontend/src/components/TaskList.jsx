@@ -45,7 +45,7 @@ const TaskList = () => {
           <div className="back section-back">
             {/* Aquí va la imagen y el mensaje cuando no haya tareas */}
             <img src="public/icons/yoga.png" alt="No tasks" />
-            <p>Nada para hacer</p>
+            <p className="task-dark">Nada para hacer</p>
           </div>
         );
       }

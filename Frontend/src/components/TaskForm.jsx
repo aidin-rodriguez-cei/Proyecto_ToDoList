@@ -67,15 +67,15 @@ const TaskForm = ({ onClose, taskToEdit }) => {
 
   return (
     <section id="form">
-      <div className="cerrar">
+      <div className="cerrar task-dark">
         <button title="Cerrar" onClick={onClose}>
           <i className="fa-regular fa-circle-xmark"></i>
         </button>
       </div>
-      <h2>{taskToEdit ? "Editar tarea" : "Nueva tarea"}</h2>
+      <h2 className="task-dark">{taskToEdit ? "Editar tarea" : "Nueva tarea"}</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="form-title">Nombre de la tarea (*)</label>
-        <input
+        <input className="task-dark"
           type="text"
           id="form-title"
           name="titulo"
@@ -84,7 +84,7 @@ const TaskForm = ({ onClose, taskToEdit }) => {
           required
         />
         <label htmlFor="form-desc">Descripción</label>
-        <textarea
+        <textarea className="task-dark"
           id="form-desc"
           name="descripcion"
           rows="4"
@@ -92,7 +92,7 @@ const TaskForm = ({ onClose, taskToEdit }) => {
           onChange={handleChange}
         />
         <label htmlFor="form-cat">Tipo de tarea</label>
-        <select
+        <select className="task-dark"
           id="form-cat"
           name="categoria"
           value={form.categoria}

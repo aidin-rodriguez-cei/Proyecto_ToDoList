@@ -3,18 +3,24 @@ import "@/css/style.css";
 
 const Footer = ({ onAddTask }) => {
   return (
-    <footer>
-    {/* Botón para agregar una nueva tarea */}
-      <button id="add" title="Nueva Tarea" onClick={onAddTask}>
-        <img src="/public/icons/add.png" alt="Add new" />
+    <footer className="footer">
+      {/* Botón para agregar una nueva tarea */}
+      <button
+        id="add"
+        title="Nueva Tarea"
+        onClick={onAddTask}
+        className="add-task-button"
+      >
+        <img src="/icons/add.png" alt="Add new" />
       </button>
 
       {/* Información del pie de página */}
-      <p className="mt-4 text-center text-sm">
-        © 2025 To do List - Aidin Rodriguez 
+      <p className="footer-text">
+        © 2025 To do List - Aidin Rodriguez
       </p>
     </footer>
   );
 };
 
 export default Footer;
+
