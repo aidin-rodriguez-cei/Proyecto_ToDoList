@@ -1,8 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { TasksContext } from "@/context/TasksContext";
 
-const TaskForm = ({ onClose }) => {
-  const { addTask } = useContext(TasksContext);
+const TaskForm = ({ onClose, taskToEdit }) => {
+  const { addTask, editTask } = useContext(TasksContext);
+
+  // Estado del formulario
   const [form, setForm] = useState({
     titulo: "",
     descripcion: "",
@@ -10,26 +12,50 @@ const TaskForm = ({ onClose }) => {
     prioridad: 0,
   });
 
+  // Rellenar el formulario con los datos de la tarea a editar
+  useEffect(() => {
+    if (taskToEdit) {
+      setForm({
+        titulo: taskToEdit.titulo,
+        descripcion: taskToEdit.descripcion,
+        categoria: taskToEdit.categoria,
+        prioridad: taskToEdit.prioridad,
+      });
+    }
+  }, [taskToEdit]);
+
+  // Manejar los cambios en los inputs del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
+  // Manejar el cambio de prioridad
   const handlePriorityChange = (value) => {
     setForm({ ...form, prioridad: value });
   };
 
+  // Manejar el envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
     if (form.titulo.trim() === "") {
       alert("El nombre de la tarea es obligatorio");
       return;
     }
-    addTask({ ...form, completada: false });
+    
+    if (taskToEdit) {
+      // Si estamos editando una tarea, la actualizamos
+      editTask(taskToEdit.index, { ...form, completada: taskToEdit.completada });
+    } else {
+      // Si estamos añadiendo una tarea, la agregamos
+      addTask({ ...form, completada: false });
+    }
+
     resetForm();
     onClose();
   };
 
+  // Restablecer el formulario
   const resetForm = () => {
     setForm({
       titulo: "",
@@ -46,7 +72,7 @@ const TaskForm = ({ onClose }) => {
           <i className="fa-regular fa-circle-xmark"></i>
         </button>
       </div>
-      <h2>Ingresa una tarea</h2>
+      <h2>{taskToEdit ? "Editar tarea" : "Nueva tarea"}</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="form-title">Nombre de la tarea (*)</label>
         <input
@@ -107,7 +133,7 @@ const TaskForm = ({ onClose }) => {
           ))}
         </div>
         <button type="submit" className="btnAdd">
-          Agregar
+          {taskToEdit ? "Guardar cambios" : "Agregar"}
         </button>
       </form>
     </section>
@@ -115,6 +141,7 @@ const TaskForm = ({ onClose }) => {
 };
 
 export default TaskForm;
+
 
 
 

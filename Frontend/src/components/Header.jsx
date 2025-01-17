@@ -6,9 +6,9 @@ const Header = () => {
     return (
         <header className="header">
             <nav>
-                <img src="/public/icons/menu.png" alt="Menú" />
+                <button />
                 <h1 className="header-name">To do List</h1>
-                <img src="/public/icons/user.png" alt="Login" />
+                <img src="/public/icons/menu.png" alt="Menú" />
             </nav>
         </header>
     );

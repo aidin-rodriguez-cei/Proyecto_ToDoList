@@ -60,17 +60,23 @@ header img {
 }
 
 .back {
-  text-align: center;
-  background-image: url('/icons/yoga.png');
-  width: 28%;
-  min-width: 100px;
-  margin: 0 auto;
-  min-height: 180px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin-bottom: 5px;
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  width: 100%; 
+  height: 70vh; 
+  text-align: center; 
+  margin: 0; 
 }
+
+.back img {
+  width: 150px; 
+  height: auto; 
+  margin-bottom: 10px; 
+}
+
+
 
 /* TASK LIST */
 .tasks {
@@ -106,6 +112,17 @@ header img {
   background: #BDBDBD;
   padding: 8px 8px;
 }
+
+.delete {
+  float: right;
+  margin-right: 10px;
+}
+
+.delete i {
+  margin-right: 4px; 
+  margin-bottom: 16px;
+}
+
 
 .high-priority {
   border-left: 3px solid rgb(250, 101, 126);
@@ -147,6 +164,17 @@ input[type="checkbox"] {
 
 input[type="checkbox"] + label {
   cursor: pointer;
+}
+
+/* Ocultar el input nativo */
+input[type="checkbox"] {
+  display: none;
+}
+
+/* Estilo para el contenedor del icono del checkbox */
+input[type="checkbox"] + label {
+  cursor: pointer;
+  font-size: 1.5em;
 }
 
 /* Empty Tasks */
@@ -292,6 +320,22 @@ input:checked + label span {
   display: inline-flex; 
   justify-content: center; 
   align-items: center; 
+}
+
+/* FILTROS */
+
+.filters {
+  margin-bottom: 20px;
+}
+
+.filters label {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.filters select {
+  margin-right: 20px;
+  padding: 5px;
 }
 
 
