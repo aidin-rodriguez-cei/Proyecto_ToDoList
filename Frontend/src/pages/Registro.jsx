@@ -15,7 +15,7 @@ const Registro = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Lógica de registro
+    // Registro
     console.log("Datos de registro:", form);
   };
 
@@ -23,10 +23,13 @@ const Registro = () => {
     <div className={`page-container ${tema}`}>
       <Header />
       <div className="form-center-container">
-      <div className="box-text">
-      <h1>¡Organiza tu día!</h1>
-      <p> Regístrate y empieza a gestionar tus tareas de forma eficiente.</p>
-      </div>
+        <div className="box-text">
+          <h1>¡Organiza tu día!</h1>
+          <p>
+            {" "}
+            Regístrate y empieza a gestionar tus tareas de forma eficiente.
+          </p>
+        </div>
         <div className="form-box">
           <h2>Regístrate</h2>
           <form onSubmit={handleSubmit}>
@@ -67,5 +70,3 @@ const Registro = () => {
 };
 
 export default Registro;
-
-

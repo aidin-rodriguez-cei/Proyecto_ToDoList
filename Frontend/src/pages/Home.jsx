@@ -12,7 +12,6 @@ const Home = () => {
 
   return (
     <TasksProvider>
-      {/* Aplicar clase de tema global al body */}
       <div className={tema === "dark" ? "dark" : "light"}>
         <Header />
         {isFormOpen ? (

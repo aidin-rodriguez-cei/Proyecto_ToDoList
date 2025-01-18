@@ -8,7 +8,7 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Cambiar el ID del body dependiendo del tema
+    // Cambia el ID del body dependiendo del tema
     const body = document.body;
     body.id = tema === "dark" ? "dark-body" : "light-body";
   }, [tema]);
@@ -26,12 +26,12 @@ const Header = () => {
           {tema === "dark" ? "🌙" : "☀️"}
         </button>
 
-        {/* Título centrado */}
+        {/* Título */}
         <h1 className="header-name">
-        <Link to="/">To do List</Link>
+          <Link to="/">To do List</Link>
         </h1>
 
-        {/* Botón de menú con desplegable */}
+        {/* Menú con desplegable */}
         <div className="menu-container">
           <button
             className="menu-button"
@@ -59,5 +59,3 @@ const Header = () => {
 };
 
 export default Header;
-
-

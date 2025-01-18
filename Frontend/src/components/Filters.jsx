@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 
 const Filters = ({ onFilter }) => {
@@ -12,7 +11,7 @@ const Filters = ({ onFilter }) => {
     const { name, value } = e.target;
     const newFilter = { ...filter, [name]: value };
     setFilter(newFilter);
-    onFilter(newFilter); // Pasar filtros al componente padre
+    onFilter(newFilter); 
   };
 
   return (

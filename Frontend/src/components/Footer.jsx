@@ -14,13 +14,10 @@ const Footer = ({ onAddTask }) => {
         <img src="/icons/add.png" alt="Add new" />
       </button>
 
-      {/* Información del pie de página */}
-      <p className="footer-text">
-        © 2025 To do List - Aidin Rodriguez
-      </p>
+      {/* Info */}
+      <p className="footer-text">© 2025 To do List - Aidin Rodriguez</p>
     </footer>
   );
 };
 
 export default Footer;
-

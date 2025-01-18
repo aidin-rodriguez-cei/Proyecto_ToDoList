@@ -15,7 +15,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Lógica de autenticación
+    // Autenticación
     console.log("Login data:", form);
   };
 
@@ -58,5 +58,3 @@ const Login = () => {
 };
 
 export default Login;
-
-

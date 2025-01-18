@@ -1,3 +1,4 @@
+/* ================= GENERAL ================= */
 * {
   margin: 0;
   padding: 0;
@@ -11,11 +12,23 @@ html {
 }
 
 body {
-  font-family: 'Nunito', 'Public Sans', sans-serif;
+  font-family: "Nunito", "Public Sans", sans-serif;
   background-color: #f3f3f3;
   font-size: 16px;
   margin-bottom: 100px;
 }
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  font-family: "Nunito", "Public Sans", sans-serif;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ================= HEADER ================= */
 
 header {
   background-color: #b7d9db;
@@ -23,16 +36,15 @@ header {
   padding: 20px;
   min-width: 300px;
   display: flex;
-  justify-content: center;  
+  justify-content: center;
 }
 
 header .container {
-  width: 100%;  
+  width: 100%;
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
 }
-
 
 header img {
   width: 24px;
@@ -40,17 +52,8 @@ header img {
   cursor: pointer;
 }
 
-.hidden {
-  display: none;
-}
 
-.container {
-  width: 80%;
-  margin: 0 auto;
-  font-family: 'Nunito', 'Public Sans', sans-serif;
-}
-
-/* BACKGROUND */
+/* ================= BACKGROUND ================= */
 
 .section-back {
   text-align: center;
@@ -64,25 +67,24 @@ header img {
 }
 
 .back {
-  display: flex; 
-  flex-direction: column; 
-  justify-content: center; 
-  align-items: center; 
-  width: 100%; 
-  height: 70vh; 
-  text-align: center; 
-  margin: 0; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 70vh;
+  text-align: center;
+  margin: 0;
 }
 
 .back img {
-  width: 150px; 
-  height: auto; 
-  margin-bottom: 10px; 
+  width: 150px;
+  height: auto;
+  margin-bottom: 10px;
 }
 
+/* ================= TASK LIST ================= */
 
-
-/* TASK LIST */
 .tasks {
   width: 80%;
   min-height: 100px;
@@ -93,7 +95,6 @@ header img {
   box-shadow: 1px 3px 10px 1px #aaa;
 }
 
-/* Task Item */
 .task-item {
   width: 100%;
   margin-top: 10px;
@@ -110,10 +111,9 @@ header img {
   background: #ddd;
 }
 
-
 .completed {
   text-decoration: line-through;
-  background: #BDBDBD;
+  background: #bdbdbd;
   padding: 8px 8px;
 }
 
@@ -123,10 +123,9 @@ header img {
 }
 
 .delete i {
-  margin-right: 4px; 
+  margin-right: 4px;
   margin-bottom: 16px;
 }
-
 
 .high-priority {
   border-left: 3px solid rgb(250, 101, 126);
@@ -181,20 +180,8 @@ input[type="checkbox"] + label {
   font-size: 1.2em;
 }
 
-/* Empty Tasks */
-.empty-tasks {
-  text-align: center;
-  font-size: 18px;
-  color: #777;
-  padding: 20px 0;
-}
 
-.empty-tasks i {
-  font-size: 3em;
-  color: #aaa;
-}
-
-/* FORM */
+/* ================= FORM ================= */
 
 textarea {
   resize: none;
@@ -218,7 +205,10 @@ textarea {
   font-weight: 700;
 }
 
-#form input[type=text], #form select, #form option, #form textarea {
+#form input[type="text"],
+#form select,
+#form option,
+#form textarea {
   display: block;
   background-color: #f3f3f3;
   margin-top: 5px;
@@ -229,7 +219,9 @@ textarea {
   padding: 5px 15px;
 }
 
-#form input[type=text], #form select, #form option {
+#form input[type="text"],
+#form select,
+#form option {
   height: 32px;
 }
 
@@ -268,6 +260,8 @@ textarea {
   top: -4px;
   font-size: 1.5em;
 }
+
+/* ================= CUSTOM RADIOS ================= */
 
 .custom-radios div {
   display: inline-block;
@@ -321,16 +315,16 @@ input:checked + label span img {
 input:checked + label span {
   opacity: 1;
   border: 2px solid #434343;
-  display: inline-flex; 
-  justify-content: center; 
-  align-items: center; 
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* FILTROS */
+/* ================= FILTROS ================= */
 
 .filters {
   margin-bottom: 20px;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 }
 
 .filters label {
@@ -346,35 +340,35 @@ input:checked + label span {
 /* Ajustes en pantallas pequeñas */
 @media (max-width: 768px) {
   .filters {
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
   }
 
   .filters label,
   .filters select {
-    margin-bottom: 10px; /* Separación entre los filtros cuando se envuelven */
-    margin-right: 0; /* Eliminar margen a la derecha */
+    margin-bottom: 10px; 
+    margin-right: 0; /
   }
 
   .filters select {
-    width: 100%; /* Hacer que el select ocupe todo el ancho disponible */
+    width: 100%; 
   }
 }
 
 
-/* FOOTER */
+/* ================= FOOTER ================= */
 
 footer {
-  position: absolute;  
-  bottom: 0;          
+  position: absolute;
+  bottom: 0;
   width: 100%;
   height: 50px;
-  background-color: #b7d9db80;  
+  background-color: #b7d9db80;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   color: #333;
-  z-index: 1;  
+  z-index: 1;
 }
 
 footer p {
@@ -387,36 +381,36 @@ footer button {
   margin-right: 20px;
 }
 
+/* ================= BOTON EN EL FOOTER ================= */
+
 button {
   border: none;
   background: none;
   cursor: pointer;
 }
 
-/* Modificamos el color para que coincida con el del header */
 button#add {
-  position: fixed;  /* Mantenerlo en una posición fija */
-  bottom: 100px;    /* Subirlo un poco más arriba del footer */
-  right: 20px;      /* Alinearlo a la derecha */
-  background-color: #b7d9db;  /* Color del header */
+  position: fixed; 
+  bottom: 100px; 
+  right: 20px; 
+  background-color: #b7d9db; 
   border: none;
-  border-radius: 50%;   /* Hacerlo redondo */
+  border-radius: 50%; 
   padding: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  z-index: 10;   
+  z-index: 10;
 }
 
-/* Estilo para la imagen dentro del botón */
 button#add img {
   width: 30px;
   height: 30px;
 }
 
-/* Opcional: Ajustes en pantallas pequeñas */
+/* Ajustes en pantallas pequeñas */
 @media (max-width: 768px) {
   button#add {
-    bottom: 80px;   
+    bottom: 80px;
     right: 10px;
     padding: 12px;
   }
@@ -427,7 +421,7 @@ button#add img {
   }
 }
 
-/* BOTON CAMBIAR TEMAS */
+/* ================= BOTON CAMBIAR TEMA CLARO/OSCURO ================= */
 
 /* Estilos para el tema oscuro */
 
@@ -473,15 +467,16 @@ button#add img {
 }
 
 .dark .task-dark {
-  color: #333; 
+  color: #333;
 }
 
-.dark, .filters .task-dark {
-  color: #333; 
+.dark,
+.filters .task-dark {
+  color: #333;
 }
 
 .dark p {
-  color: #ffff !important; 
+  color: #ffff !important;
 }
 
 .dark .btnAdd {
@@ -522,11 +517,10 @@ button#add img {
 }
 
 .theme-toggle:hover {
-  background-color: rgba(0, 0, 0, 0.2); 
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
-
-/* MENU DESPLEGABLE */
+/* ================= MENU DESPLEGABLE ================= */
 
 .menu-container {
   position: relative;
@@ -547,7 +541,7 @@ button#add img {
   border-radius: 8px;
   overflow: hidden;
   z-index: 10;
-  width: 150px; 
+  width: 150px;
 }
 
 .menu-dropdown a {
@@ -563,6 +557,7 @@ button#add img {
   background-color: #f3f3f3;
 }
 
+/* Estilos para el tema oscuro */
 .dark .menu-dropdown {
   background-color: #444;
 }
@@ -575,7 +570,7 @@ button#add img {
   background-color: #555;
 }
 
-/* FORMULARIOS */
+/* ================= FORMULARIOS ================= */
 
 /* Contenedor principal para Login y Registro */
 .page-container {
@@ -589,7 +584,7 @@ button#add img {
   padding: 20px;
   min-width: 300px;
   display: flex;
-  justify-content: center;  
+  justify-content: center;
 }
 
 .page-container footer button {
@@ -598,9 +593,9 @@ button#add img {
 
 /* Contenedor para centrar el formulario */
 .form-center-container {
-  flex-grow: 1; /* Ocupa el espacio entre header y footer */
+  flex-grow: 1; 
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
@@ -622,7 +617,7 @@ button#add img {
   margin-bottom: 20px;
   font-size: 22px;
   color: #333;
-  text-align: center ;
+  text-align: center;
 }
 
 /* Estilo para textos del formulario */
@@ -648,7 +643,6 @@ button#add img {
   justify-content: center;
   flex-wrap: wrap;
 }
-
 
 /* Estilo para inputs */
 .form-box input {
@@ -682,7 +676,7 @@ button#add img {
   color: #ff4d4f;
 }
 
-/* Modo oscuro */
+/* Estilos para el tema oscuro */
 .dark .form-box {
   background-color: #444;
   color: #fff;
@@ -715,7 +709,61 @@ button#add img {
   color: #ffff;
 }
 
-
 .dark .form-box h2 {
   color: #ffff;
+}
+
+/* ================= PÁGINA DE ERROR  ================= */
+
+.error-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 70vh;
+  padding: 50px;
+}
+
+.error-page h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.error-page p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+/* Enlace dentro del texto */
+.link-home {
+  color: #5e8d90;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.link-home:hover {
+  color: #b7d9db;
+}
+
+
+/* Tema oscuro */
+.dark .error-page h1 {
+  color: #ffffff;
+}
+
+.dark .error-page p {
+  color: #dddddd;
+}
+
+.dark .link-home {
+  color: #b7d9db;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.dark .link-home:hover {
+  color: #5e8d90;
 }

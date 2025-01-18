@@ -19,8 +19,7 @@ const useTasks = () => {
   const addTask = (task) => setTasks([...tasks, task]);
 
   // Función para eliminar una tarea
-  const deleteTask = (index) =>
-    setTasks(tasks.filter((_, i) => i !== index));
+  const deleteTask = (index) => setTasks(tasks.filter((_, i) => i !== index));
 
   // Eliminar tareas completadas
   const deleteCompleted = () =>
