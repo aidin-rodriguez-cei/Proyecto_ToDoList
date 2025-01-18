@@ -169,15 +169,19 @@ input[type="checkbox"] + label {
   cursor: pointer;
 }
 
-/* Ocultar el input nativo */
-input[type="checkbox"] {
-  display: none;
-}
+.tyc {
+  display: inline-flex;       
+  align-items: center;  
+  margin-bottom: 20px;
+  }
 
-/* Estilo para el contenedor del icono del checkbox */
-input[type="checkbox"] + label {
-  cursor: pointer;
-  font-size: 1.2em;
+.tyc input[type="checkbox"] {
+  display: inline-block; 
+  margin-top: 12px;    
+  margin-right: 8px;          
+  cursor: pointer;           
+  width: auto;                
+  height: auto;          
 }
 
 
@@ -766,4 +770,26 @@ button#add img {
 
 .dark .link-home:hover {
   color: #5e8d90;
+}
+
+/* ================= LOGIN ================= */
+
+.user-login {
+  border-radius: 50%; 
+  display: inline;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.user-login-text {
+  display: inline;
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.dark .user-login-text {
+color: #ffff
+
 }

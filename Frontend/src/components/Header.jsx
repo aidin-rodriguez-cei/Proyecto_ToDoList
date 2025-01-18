@@ -1,22 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { ModoOscuroContext } from "@/context/ModoOscuroContext";
+import { useUser } from "@/hooks/useUser";
 import "@/css/style.css";
 
-const Header = () => {
+export const Header = () => {
   const { tema, toggleTema } = useContext(ModoOscuroContext);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user, logout, login, register } = useUser();
 
   useEffect(() => {
     // Cambia el ID del body dependiendo del tema
     const body = document.body;
     body.id = tema === "dark" ? "dark-body" : "light-body";
   }, [tema]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Login data:", form);
-  };
 
   return (
     <header className={`header ${tema}`}>
@@ -41,15 +38,26 @@ const Header = () => {
           </button>
           {menuOpen && (
             <div className="menu-dropdown">
-              <Link to="/" onClick={() => setMenuOpen(false)}>
+              <NavLink to="/" onClick={() => setMenuOpen(false)}>
                 Inicio
-              </Link>
-              <Link to="/registro" onClick={() => setMenuOpen(false)}>
-                Registro
-              </Link>
-              <Link to="/login" onClick={() => setMenuOpen(false)}>
-                Iniciar sesión
-              </Link>
+              </NavLink>
+
+              {user ? (
+              <>
+              <NavLink onClick={logout}>Salir</NavLink>
+              <img src={user.image} alt={user.username} className="user-login" />
+              <h3 className="user-login-text">{user.username}</h3>
+              </>
+              ):(
+              <>
+              <NavLink to="/registro" onClick={() => setMenuOpen(false)}>
+              Registro
+              </NavLink>
+              <NavLink to="/login" onClick={() => setMenuOpen(false)}>
+              Iniciar sesión
+              </NavLink>
+              </>
+              )}
             </div>
           )}
         </div>

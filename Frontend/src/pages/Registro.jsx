@@ -1,22 +1,41 @@
 import React, { useState, useContext } from "react";
+import { useUser } from '@/hooks/useUser';
 import { ModoOscuroContext } from "@/context/ModoOscuroContext";
+import { useNavigate } from 'react-router-dom';
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "@/css/style.css";
 
 const Registro = () => {
   const { tema, toggleTema } = useContext(ModoOscuroContext);
-  const [form, setForm] = useState({ username: "", email: "", password: "" });
+  
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    tyc: false,
+    image: "https://picsum.photos/200"
+  });
+
+  const { register } = useUser(); 
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    const { name, value, type, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData, 
+      [name]: type === 'checkbox' ? checked : value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Registro
-    console.log("Datos de registro:", form);
+    console.log("Datos de registro:", formData);
+    register(formData);
+    // redirige a otra página
+    navigate("/");
   };
 
   return (
@@ -25,10 +44,7 @@ const Registro = () => {
       <div className="form-center-container">
         <div className="box-text">
           <h1>¡Organiza tu día!</h1>
-          <p>
-            {" "}
-            Regístrate y empieza a gestionar tus tareas de forma eficiente.
-          </p>
+          <p>Regístrate y empieza a gestionar tus tareas de forma eficiente.</p>
         </div>
         <div className="form-box">
           <h2>Regístrate</h2>
@@ -38,7 +54,7 @@ const Registro = () => {
               type="text"
               id="username"
               name="username"
-              value={form.username}
+              value={formData.username}
               onChange={handleChange}
               required
             />
@@ -47,7 +63,7 @@ const Registro = () => {
               type="email"
               id="email"
               name="email"
-              value={form.email}
+              value={formData.email}
               onChange={handleChange}
               required
             />
@@ -56,10 +72,20 @@ const Registro = () => {
               type="password"
               id="password"
               name="password"
-              value={form.password}
+              value={formData.password}
               onChange={handleChange}
               required
             />
+            <label className="tyc">
+              <input
+                onChange={handleChange}
+                name="tyc"
+                type="checkbox"
+                checked={formData.tyc}
+              />
+              Acepto los Terminos y Condiciones
+            </label>
+
             <button type="submit">Registrarme</button>
           </form>
         </div>

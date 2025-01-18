@@ -1,22 +1,38 @@
 import React, { useState, useContext } from "react";
+import { useUser } from '@/hooks/useUser';
 import { ModoOscuroContext } from "@/context/ModoOscuroContext";
+import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "@/css/style.css";
 
 const Login = () => {
   const { tema, toggleTema } = useContext(ModoOscuroContext);
-  const [form, setForm] = useState({ username: "", password: "" });
+  const [formData, setFormData] = useState({ 
+      username: "Aidin", 
+      password: "",
+      image: "https://picsum.photos/200"
+    });
+
+  const { login } = useUser(); 
+  
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Autenticación
-    console.log("Login data:", form);
+    console.log(formData);
+    login(formData);
+    // redirige a otra página
+    navigate("/");
   };
 
   return (
@@ -35,7 +51,7 @@ const Login = () => {
               type="text"
               id="username"
               name="username"
-              value={form.username}
+              value={formData.username}
               onChange={handleChange}
               required
             />
@@ -44,7 +60,7 @@ const Login = () => {
               type="password"
               id="password"
               name="password"
-              value={form.password}
+              value={formData.password}
               onChange={handleChange}
               required
             />
