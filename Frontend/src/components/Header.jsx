@@ -3,6 +3,8 @@ import { Link, NavLink } from "react-router-dom";
 import { ModoOscuroContext } from "@/context/ModoOscuroContext";
 import { useUser } from "@/hooks/useUser";
 import "@/css/style.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export const Header = () => {
   const { tema, toggleTema } = useContext(ModoOscuroContext);
@@ -38,25 +40,33 @@ export const Header = () => {
           </button>
           {menuOpen && (
             <div className="menu-dropdown">
+              <button className="close-menu" onClick={() => setMenuOpen(false)}>
+                <FontAwesomeIcon icon={faTimes} className="close-menu-icon"/>
+              </button>
+
               <NavLink to="/" onClick={() => setMenuOpen(false)}>
                 Inicio
               </NavLink>
 
               {user ? (
-              <>
-              <NavLink onClick={logout}>Salir</NavLink>
-              <img src={user.image} alt={user.username} className="user-login" />
-              <h3 className="user-login-text">{user.username}</h3>
-              </>
-              ):(
-              <>
-              <NavLink to="/registro" onClick={() => setMenuOpen(false)}>
-              Registro
-              </NavLink>
-              <NavLink to="/login" onClick={() => setMenuOpen(false)}>
-              Iniciar sesión
-              </NavLink>
-              </>
+                <>
+                  <NavLink onClick={logout}>Salir</NavLink>
+                  <img
+                    src={user.image}
+                    alt={user.username}
+                    className="user-login"
+                  />
+                  <h3 className="user-login-text">{user.username}</h3>
+                </>
+              ) : (
+                <>
+                  <NavLink to="/registro" onClick={() => setMenuOpen(false)}>
+                    Registro
+                  </NavLink>
+                  <NavLink to="/login" onClick={() => setMenuOpen(false)}>
+                    Iniciar sesión
+                  </NavLink>
+                </>
               )}
             </div>
           )}
@@ -67,3 +77,5 @@ export const Header = () => {
 };
 
 export default Header;
+
+

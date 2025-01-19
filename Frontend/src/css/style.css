@@ -574,6 +574,44 @@ button#add img {
   background-color: #555;
 }
 
+/* Estilos para botón de cierre del menu */
+.menu-dropdown {
+  position: absolute;
+  top: 40px; 
+  right: 0px; 
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding-top: 16px;
+  box-sizing: border-box;
+}
+
+.close-menu-icon {
+  position: absolute; 
+  top: 20px; 
+  right: 20px; 
+  background: none; 
+  border: none; 
+  font-size: 1.2rem; 
+  color: #333; 
+  cursor: pointer; 
+}
+
+.close-menu-icon:hover {
+  color: #b7d9db; 
+}
+
+/* Tema oscuro */
+.dark .menu-dropdown {
+  background-color: #333;
+  color: #fff;
+}
+
+.dark .close-menu-icon {
+  color: #fff;
+}
+
+
 /* ================= FORMULARIOS ================= */
 
 /* Contenedor principal para Login y Registro */
@@ -791,5 +829,4 @@ button#add img {
 
 .dark .user-login-text {
 color: #ffff
-
 }
