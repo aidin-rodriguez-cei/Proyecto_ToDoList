@@ -21,7 +21,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Base de datos
+// Simulando la Base de datos
 const users = [];
 
 const MockUsers = {
@@ -32,9 +32,14 @@ const MockUsers = {
 };
 
 // Rutas
+
+// USUARIOS
+
 app.get("/api/v1/users", async (req, res, next) => {
   res.status(200).json({ data: users, message: "Aquí estan tus usuarios" });
 });
+
+//POST Login de Usuarios
 
 app.post("/api/v1/login", async (req, res, next) => {
   try {
@@ -64,11 +69,13 @@ app.post("/api/v1/login", async (req, res, next) => {
     });
 
     console.log("haciendo login");
-    res.status(200).json({ data: user, message: "Login correcto", token});
+    res.status(200).json({ data: user, message: "Login exitoso", token});
   } catch (e) {
     res.status(500).json({ error: "Error en el servidor" });
   }
 });
+
+//POST Registro de Usuarios
 
 app.post("/api/v1/register", async (req, res, next) => {
   const {
@@ -92,21 +99,30 @@ app.post("/api/v1/register", async (req, res, next) => {
 
   // obtener el usuario recién creado
   const user = users.find((u) => u.username === username);
-  //const user = users.find((u) => u.id === id);
+
+    // Crear JWT Token y devuelvo el usuario (sin clave)
+
+    // Create and Sign JWT
+    const token = jwt.sign({ username: username }, JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
 
   try {
     console.log("haciendo register");
-    res.status(200).json({ data: user, message: "Registro correcto" });
+    res.status(200).json({ data: user, message: "Usuario registrado con éxito", token });
   } catch (e) {
     res.status(500).json({ error: "Error en el servidor" });
   }
 });
 
-app.get('/api/v1/home', authenticateToken, async (req, res, next) => {
-  console.log("ver contenido de la página");
-  res.status(200).json({ message: "Aquí estan tu contenido del home" })
 
-});
+// HOME PRIVADO
+
+//app.get('/api/v1/home', authenticateToken, async (req, res, next) => {
+//  console.log("ver contenido de la página");
+//  res.status(200).json({ message: "Aquí estan tu contenido del home" })
+//});
 
 app.listen(PORT, () => {
   console.log(`Server esta corriendo en ${DOMAIN}:${PORT}`);

@@ -20,38 +20,89 @@ export function UserProvider({ children }) {
 
   // login
   const login = async (userData) => {
-    console.log("Estoy en login");
-    console.log(userData);
+    // console.log("Estoy en login");
+    // console.log(userData);
 
-    // fetch para enviarle al backend
-    const response = await fetch(`${VITE_API_URL}/login`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    });
+    try {
+      // Aqui enviamos los datos a nuestro backend
+      // y recibiremos la respuesta antes de establecer el usuario
 
-    // el backend me devuelve mi USUARIO completo
-    // foto, nombre, email (NO CLAVE)
-    const responseData = await response.json();
+      const response = await fetch(`${VITE_BACKEND_URL}/api/v1/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
 
-    if (!response.ok) {
-      console.error("Error del servidor:", responseData);
-      return;
+      // el backend me devuelve mi USUARIO completo
+      // foto, nombre, email (NO CLAVE)
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        console.error("Error del servidor:", responseData);
+        return responseData.message;
+      }
+
+      // extraemos el usuario de la respuesta
+      const usuario = responseData.data;
+
+      // guardo con setUser mis datos de usuario
+      setUser(usuario);
+
+      // Guardamos el usuario en LocalStorage
+      localStorage.setItem("user", JSON.stringify(usuario));
+
+      // Guardamos el JWT token en LocalStorage
+      localStorage.setItem("token", responseData.token);
+
+      return null; // no hay error
+    } catch (e) {
+      console.error("Error:", e);
+      return "Error en el servidor";
     }
-
-    localStorage.setItem("user", JSON.stringify(responseData));
-
-    // guardo con setUser mis datos de usuario
-    setUser(userData);
   };
 
   // registro
-  const register = (userData) => {
-    console.log("Estoy en register");
-    // fetch para enviarle al backend
-    setUser(userData);
+  const register = async (userData) => {
+    try {
+      // Aqui enviamos los datos a nuestro backend
+      // y recibiremos la respuesta antes de establecer el usuario
+
+      const response = await fetch(`${VITE_BACKEND_URL}/api/v1/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
+
+      // el backend me devuelve mi USUARIO completo
+      // foto, nombre, email (NO CLAVE)
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        console.error("Error del servidor:", responseData);
+        return responseData.message;
+      }
+
+      // extraemos el usuario de la respuesta
+      const usuario = responseData.data;
+
+      // guardo con setUser mis datos de usuario
+      setUser(usuario);
+
+      // Guardamos el usuario en LocalStorage
+      localStorage.setItem("user", JSON.stringify(usuario));
+
+      // Guardamos el JWT token en LocalStorage
+      localStorage.setItem("token", responseData.token);
+
+      return null; // no hay error
+    } catch (e) {
+      console.error("Error:", e);
+      return "Error en el servidor";
+    }
   };
 
   // logout
