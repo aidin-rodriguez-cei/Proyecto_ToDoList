@@ -16,7 +16,7 @@ export function UserProvider({ children }) {
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
-  });
+  }, []); // <- Array de dependencias vacío
 
   // login
   const login = async (userData) => {
@@ -28,7 +28,6 @@ export function UserProvider({ children }) {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        //'Authorization': Bearer ${}
       },
       body: JSON.stringify(userData),
     });
@@ -38,7 +37,8 @@ export function UserProvider({ children }) {
     const responseData = await response.json();
 
     if (!response.ok) {
-      console.log("ERROR al traer datos");
+      console.error("Error del servidor:", responseData);
+      return;
     }
 
     localStorage.setItem("user", JSON.stringify(responseData));

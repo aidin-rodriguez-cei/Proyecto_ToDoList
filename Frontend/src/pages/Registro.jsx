@@ -10,8 +10,8 @@ const Registro = () => {
   const { tema, toggleTema } = useContext(ModoOscuroContext);
   
   const [formData, setFormData] = useState({
+    name: "",
     username: "",
-    email: "",
     password: "",
     tyc: false,
     image: "https://picsum.photos/200"
@@ -49,21 +49,23 @@ const Registro = () => {
         <div className="form-box">
           <h2>Regístrate</h2>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Usuario:</label>
+            <label htmlFor="name">Nombre:</label>
             <input
               type="text"
-              id="username"
-              name="username"
-              value={formData.username}
+              id="name"
+              name="name"
+              value={formData.name}
+              placeholder="Ingresa tu nombre"
               onChange={handleChange}
               required
             />
-            <label htmlFor="email">Correo:</label>
+            <label htmlFor="email">Usuario:</label>
             <input
               type="email"
-              id="email"
-              name="email"
-              value={formData.email}
+              id="username"
+              name="username"
+              value={formData.username}
+              placeholder="Ingresa tu email"
               onChange={handleChange}
               required
             />
@@ -73,6 +75,7 @@ const Registro = () => {
               id="password"
               name="password"
               value={formData.password}
+              placeholder="Ingresa tu contraseña"
               onChange={handleChange}
               required
             />
@@ -82,6 +85,7 @@ const Registro = () => {
                 name="tyc"
                 type="checkbox"
                 checked={formData.tyc}
+                required
               />
               Acepto los Terminos y Condiciones
             </label>

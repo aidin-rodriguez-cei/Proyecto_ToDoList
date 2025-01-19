@@ -8,8 +8,9 @@ import "@/css/style.css";
 
 const Login = () => {
   const { tema, toggleTema } = useContext(ModoOscuroContext);
+
   const [formData, setFormData] = useState({ 
-      username: "Aidin", 
+      username: "", 
       password: "",
       image: "https://picsum.photos/200"
     });
@@ -48,10 +49,11 @@ const Login = () => {
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">Usuario:</label>
             <input
-              type="text"
+              type="email"
               id="username"
               name="username"
               value={formData.username}
+              placeholder="Ingresa tu email"
               onChange={handleChange}
               required
             />
@@ -61,6 +63,7 @@ const Login = () => {
               id="password"
               name="password"
               value={formData.password}
+              placeholder="Ingresa tu contraseña"
               onChange={handleChange}
               required
             />
