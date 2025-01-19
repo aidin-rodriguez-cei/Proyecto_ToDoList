@@ -10,6 +10,9 @@ import cors from "cors";
 // configuraciones
 import { PORT, DOMAIN, JWT_SECRET, __dirname } from "./config.js";
 
+// elementos de Auth
+import { authenticateToken } from './middlewares/auth.js';
+
 // Utilities
 const app = express();
 
@@ -30,10 +33,10 @@ const MockUsers = {
 
 // Rutas
 app.get("/api/v1/users", async (req, res, next) => {
-  res.status(200).json({ data: users, mesage: "Aquí estan tus usuarios" });
+  res.status(200).json({ data: users, message: "Aquí estan tus usuarios" });
 });
 
-app.post("/api/v1/login", authenticateToken, async (req, res, next) => {
+app.post("/api/v1/login", async (req, res, next) => {
   try {
     const { username, password } = req.body;
 
@@ -97,6 +100,12 @@ app.post("/api/v1/register", async (req, res, next) => {
   } catch (e) {
     res.status(500).json({ error: "Error en el servidor" });
   }
+});
+
+app.get('/api/v1/home', authenticateToken, async (req, res, next) => {
+  console.log("ver contenido de la página");
+  res.status(200).json({ message: "Aquí estan tu contenido del home" })
+
 });
 
 app.listen(PORT, () => {
