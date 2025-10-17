@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useUser } from '@/hooks/useUser';
 import { ModoOscuroContext } from "@/context/ModoOscuroContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // 👈 agregado Link
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "@/css/style.css";
@@ -27,14 +27,18 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Autenticación
-    console.log(formData);
-    login(formData);
-    // redirige a otra página
-    navigate("/");
-  };
+// ...
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const err = await login(formData);     // 👈 esperar a que termine
+  if (err) {
+    // aquí puedes mostrar toast o error si quieres
+    return;
+  }
+  window.dispatchEvent(new Event("auth-changed")); // 👈 notifica cambio de sesión
+  navigate("/");
+};
+
 
   return (
     <div className={`page-container ${tema}`}>
@@ -69,6 +73,14 @@ const Login = () => {
             />
             <button type="submit">Entrar</button>
           </form>
+
+          {/* 🔗 Enlace a Registro */}
+          <p className="mt-4 text-sm">
+            ¿No tienes cuenta?{" "}
+            <Link to="/registro" className="text-link">
+              Crea una aquí
+            </Link>
+          </p>
         </div>
       </div>
       <Footer />

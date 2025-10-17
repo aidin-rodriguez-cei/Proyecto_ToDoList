@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useUser } from '@/hooks/useUser';
 import { ModoOscuroContext } from "@/context/ModoOscuroContext";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // 👈 agregado Link
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "@/css/style.css";
@@ -18,7 +18,6 @@ const Registro = () => {
   });
 
   const { register } = useUser(); 
-
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -29,14 +28,18 @@ const Registro = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Registro
-    console.log("Datos de registro:", formData);
-    register(formData);
-    // redirige a otra página
-    navigate("/");
-  };
+// ...
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const err = await register(formData);  // 👈 esperar a que termine
+  if (err) {
+    // mostrar error si quieres
+    return;
+  }
+  window.dispatchEvent(new Event("auth-changed")); // 👈 notifica
+  navigate("/");
+};
+
 
   return (
     <div className={`page-container ${tema}`}>
@@ -87,11 +90,19 @@ const Registro = () => {
                 checked={formData.tyc}
                 required
               />
-              Acepto los Terminos y Condiciones
+              Acepto los Términos y Condiciones
             </label>
 
             <button type="submit">Registrarme</button>
           </form>
+
+          {/* 🔗 Enlace centrado para iniciar sesión */}
+          <p className="form-link">
+            ¿Ya tienes una cuenta?{" "}
+            <Link to="/login" className="text-link">
+              Inicia sesión aquí
+            </Link>
+          </p>
         </div>
       </div>
       <Footer />

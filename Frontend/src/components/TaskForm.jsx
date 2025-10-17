@@ -1,8 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import { TasksContext } from "@/context/TasksContext";
+import { useToast } from "@/context/ToastContext"; // 
 
 const TaskForm = ({ onClose, taskToEdit }) => {
   const { addTask, editTask } = useContext(TasksContext);
+  const toast = useToast(); // 
 
   // Estado del formulario
   const [form, setForm] = useState({
@@ -27,12 +29,35 @@ const TaskForm = ({ onClose, taskToEdit }) => {
   // Maneja los cambios en los inputs del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    if (name === "prioridad") {
+      setForm({ ...form, [name]: Number(value) });
+    } else {
+      setForm({ ...form, [name]: value });
+    }
   };
 
   // Maneja el cambio de prioridad
   const handlePriorityChange = (value) => {
-    setForm({ ...form, prioridad: value });
+    setForm({ ...form, prioridad: Number(value) });
+  };
+
+  const buildTask = (base = {}) => {
+    const id =
+      taskToEdit?.id ||
+      base.id ||
+      (crypto.randomUUID?.() || String(Date.now() + Math.random()));
+    const completada =
+      typeof base.completada === "boolean"
+        ? base.completada
+        : typeof base.completed === "boolean"
+        ? base.completed
+        : false;
+    return {
+      id,
+      ...form,
+      completada,
+      completed: completada,
+    };
   };
 
   // Maneja el envío del formulario
@@ -44,14 +69,17 @@ const TaskForm = ({ onClose, taskToEdit }) => {
     }
 
     if (taskToEdit) {
-      // Si estamos editando una tarea, la actualizamos
-      editTask(taskToEdit.index, {
-        ...form,
+      const next = buildTask({
         completada: taskToEdit.completada,
+        completed: taskToEdit.completed,
+        id: taskToEdit.id,
       });
+      editTask(taskToEdit.index, next);
+      toast.success("¡Tarea actualizada!");
     } else {
-      // Si estamos añadiendo una tarea, la agregamos
-      addTask({ ...form, completada: false });
+      const next = buildTask({ completada: false, completed: false });
+      addTask(next);
+      toast.success("¡Tarea guardada!");
     }
 
     resetForm();
@@ -115,24 +143,9 @@ const TaskForm = ({ onClose, taskToEdit }) => {
         <div className="custom-radios">
           {[
             { id: "color-1", color: "#434343", value: 0, title: "Ninguna" },
-            {
-              id: "color-2",
-              color: "rgb(134, 210, 134)",
-              value: 1,
-              title: "Baja",
-            },
-            {
-              id: "color-3",
-              color: "rgb(235, 200, 134)",
-              value: 2,
-              title: "Media",
-            },
-            {
-              id: "color-4",
-              color: "rgb(250, 101, 126)",
-              value: 3,
-              title: "Alta",
-            },
+            { id: "color-2", color: "rgb(134, 210, 134)", value: 1, title: "Baja" },
+            { id: "color-3", color: "rgb(235, 200, 134)", value: 2, title: "Media" },
+            { id: "color-4", color: "rgb(250, 101, 126)", value: 3, title: "Alta" },
           ].map((option) => (
             <div key={option.id}>
               <input

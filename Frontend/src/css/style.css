@@ -8,7 +8,7 @@
 html {
   min-height: 100%;
   position: relative;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 body {
@@ -755,6 +755,31 @@ button#add img {
   color: #ffff;
 }
 
+/* Centrar el enlace al registro debajo del formulario */
+.form-box p {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--text-color, #333);
+}
+
+/* Estilo del enlace */
+.form-box p .text-link {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 4px;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+/* Efecto hover */
+.form-box p .text-link:hover {
+  color: #b7d9db;
+  text-decoration: underline;
+}
+
+
+
 /* ================= PÁGINA DE ERROR  ================= */
 
 .error-page {
@@ -829,4 +854,151 @@ button#add img {
 
 .dark .user-login-text {
 color: #ffff
+}
+
+
+/* ================= TOAST MESSAGES (ALERTAS) ================= */
+
+.toast-container {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+}
+
+/* Estilo base de cada toast */
+.toast {
+  padding: 12px 16px;
+  border-radius: 12px;
+  min-width: 220px;
+  max-width: 360px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: toastIn 0.4s ease forwards, toastOut 0.4s ease 2.2s forwards;
+}
+
+/* Éxito */
+.toast.success {
+  background-color: #7bbe7a; 
+}
+
+/* Información */
+.toast.info {
+  background-color: #4a6fb5; /
+}
+
+/* Error */
+.toast.error {
+  background-color: #e03f4c; 
+}
+
+
+
+/* ✨ Animaciones */
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toastOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* ======= HOME PÚBLICO (sin sesión) ======= */
+.home-public {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-public-main {
+  flex: 1;                      /* ocupa el espacio entre header y footer */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  min-height: calc(100vh - 200px); /* aprox alto header+footer */
+}
+
+/* Tarjeta central (opcional, para mejor look) */
+.home-public-main section {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.1);
+  max-width: 520px;
+  width: 90%;
+}
+
+/* Tema oscuro (opcional) */
+.dark .home-public-main section {
+  background: #333;
+  color: #fff;
+}
+
+/* ======== BOTONES DE HOME (iniciar sesión / crear cuenta) ======== */
+
+.home-public-main a {
+  display: inline-block;
+  border-radius: 9999px;
+  border: 2px solid #cfd8dc;
+  padding: 10px 24px;
+  font-weight: 600;
+  color: #333;
+  text-decoration: none;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+/* Hover general */
+.home-public-main a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Hover específico */
+.home-public-main a[href*="login"]:hover {
+  background-color: #b7d9db; 
+  color: #333;
+  border-color: #b7d9db; 
+}
+
+.home-public-main a[href*="registro"]:hover {
+  background-color: #b7d9db; 
+  color: #333;
+  border-color: #b7d9db; 
+}
+
+/* Modo oscuro */
+.dark .home-public-main a {
+  background-color: #444;
+  color: #fff;
+  border-color: #777;
+}
+
+.dark .home-public-main a:hover {
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+.dark .home-public-main a[href*="login"]:hover {
+  background-color: #b7d9db; 
+}
+
+.dark .home-public-main a[href*="registro"]:hover {
+  background-color: #b7d9db; 
 }

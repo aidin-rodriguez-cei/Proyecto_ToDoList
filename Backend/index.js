@@ -27,9 +27,38 @@ const users = [];
 const MockUsers = {
   name: "Aidin",
   username: "aidin@mail.com",
-  password: "1234",
-  image: "https://picsum.photos/200",
+  password: "Hola1234!",
+  // ⬇️ ADDED: imagen estable usando seed (no cambia al recargar)
+  image: `https://picsum.photos/seed/${encodeURIComponent("aidin@mail.com")}/200`,
 };
+
+// usuario de prueba al iniciar 
+(async () => {
+  try {
+    const exists = users.find(u => u.username === MockUsers.username);
+    if (!exists) {
+      const hashed = await bcrypt.hash(MockUsers.password, 10);
+      const seededUser = {
+        id: 1,
+        name: MockUsers.name,
+        username: MockUsers.username,
+        password: hashed, // hash de "Hola1234!"
+        // ⬇️ ADDED: asegurar la misma lógica estable también aquí
+        image: `https://picsum.photos/seed/${encodeURIComponent(MockUsers.username)}/200`,
+      };
+      users.push(seededUser);
+      console.log("     username:", MockUsers.username);
+      console.log("     password:", MockUsers.password);
+    }
+  } catch (e) {
+    console.error(" Error en el usuario de prueba:", e);
+  }
+})();
+
+// endpoint simple para verificar que el backend está vivo
+app.get("/api/v1/health", (req, res) => {
+  res.status(200).json({ ok: true, users: users.length });
+});
 
 // Rutas
 
@@ -82,11 +111,10 @@ app.post("/api/v1/register", async (req, res, next) => {
     name,
     username,
     password,
-    image = "https://picsum.photos/200",
   } = req.body;
 
-  console.log(req.body);
-  console.log(image);
+  // ⬇️ ADDED: Imagen única por usuario (basada en username) — estable
+  const image = `https://picsum.photos/seed/${encodeURIComponent(username)}/200`;
 
   // Hash de contraseña con Bcrypt
   const saltRounds = 10;

@@ -13,9 +13,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const TaskItem = ({ task, index, onToggle, onDelete, onEdit }) => {
-  const { titulo, descripcion, categoria, prioridad, completed } = task;
+  const { titulo, descripcion, categoria } = task;
+
+  // ✅ Compatibilidad: soporta 'completed' y 'completada'
+  const done =
+    typeof task.completed === "boolean"
+      ? task.completed
+      : !!task.completada;
+
+  // ✅ Asegurar que prioridad sea un índice válido (0..3)
+  const prioridad = Number.isFinite(task.prioridad) ? task.prioridad : 0;
   const prioClass = ["", "low-priority", "medium-priority", "high-priority"][
-    prioridad
+    Math.max(0, Math.min(3, prioridad))
   ];
 
   // Función para obtener el icono basado en la categoría de la tarea
@@ -34,17 +43,17 @@ const TaskItem = ({ task, index, onToggle, onDelete, onEdit }) => {
     }
   };
 
+  const checkboxId = `checkbox-${index}`;
+
   return (
     <div
-      className={`task-item ${prioClass} ${
-        completed ? "completed" : ""
-      } task-dark`}
+      className={`task-item ${prioClass} ${done ? "completed" : ""} task-dark`}
     >
       {/* Icono de categoría de tarea */}
       {getCategoryIcon(categoria)}
 
       {/* Información de la tarea */}
-      <label className="task-dark">
+      <label className="task-dark" htmlFor={checkboxId}>
         <h3>{titulo}</h3>
         <small>{descripcion}</small>
       </label>
@@ -53,12 +62,13 @@ const TaskItem = ({ task, index, onToggle, onDelete, onEdit }) => {
       <div className="borrar task-dark">
         <input
           type="checkbox"
-          checked={completed}
+          checked={done}
           onChange={onToggle}
-          id={`checkbox-${index}`}
+          id={checkboxId}
+          aria-label={done ? "Marcar como pendiente" : "Marcar como completada"}
         />
-        <label htmlFor={`checkbox-${index}`}>
-          {task.completed ? (
+        <label htmlFor={checkboxId}>
+          {done ? (
             <FontAwesomeIcon icon={faCheck} /> // icono de check
           ) : (
             <FontAwesomeIcon icon={faSquare} /> // icono de caja vacía

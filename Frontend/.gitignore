@@ -23,4 +23,12 @@ dist-ssr
 *.sln
 *.sw?
 
+# env
 .env
+.env.*
+!.env.example
+
+# Cachés
+.eslintcache
+coverage/
+*.tsbuildinfo

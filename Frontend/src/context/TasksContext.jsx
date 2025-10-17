@@ -1,49 +1,144 @@
-import React, { createContext, useState, useEffect } from "react";
+// src/context/TasksContext.jsx
+import React, { createContext, useEffect, useMemo, useRef, useState } from "react";
 
-// Crea el contexto de tareas
 export const TasksContext = createContext();
 
-// Proveedor del contexto de tareas
-export const TasksProvider = ({ children }) => {
-  const [tasks, setTasks] = useState([]);
+// Lee el usuario actual desde localStorage
+function getStoredUser() {
+  try {
+    const raw = localStorage.getItem("user");
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
 
-  // Recupera las tareas guardadas en localStorage al cargar la aplicación
+// Lee tareas desde una clave
+function readTasks(key) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+// Guarda tareas en una clave
+function writeTasks(key, tasks) {
+  try {
+    localStorage.setItem(key, JSON.stringify(tasks));
+  } catch {}
+}
+
+export const TasksProvider = ({ children }) => {
+  // 👇 “tick” para forzar re-render cuando cambia la auth (login/logout)
+  const [userTick, setUserTick] = useState(0);
   useEffect(() => {
-    const storedTasks = JSON.parse(localStorage.getItem("TASKS")) || [];
-    setTasks(storedTasks);
+    const handler = () => setUserTick((t) => t + 1);
+    window.addEventListener("auth-changed", handler);
+    return () => window.removeEventListener("auth-changed", handler);
   }, []);
 
-  // Guarda las tareas en localStorage cada vez que cambian
+  // username se recalcula en cada render; userTick fuerza el re-render cuando cambie la auth
+  const username = (getStoredUser() || {})?.username || null;
+
+  // Clave por usuario (o invitado)
+  const STORAGE_KEY = useMemo(
+    () => (username ? `TASKS:${username}` : "TASKS:guest"),
+    [username, userTick]
+  );
+
+  const [tasks, setTasks] = useState([]);
+  const [hydrated, setHydrated] = useState(false);
+
+  // Para evitar efectos dobles en StrictMode y manejar cambio de clave
+  const lastKeyRef = useRef(null);
+
+  // 1) Hidratar SIEMPRE que cambie la clave (usuario distinto / invitado)
   useEffect(() => {
-    localStorage.setItem("TASKS", JSON.stringify(tasks));
-  }, [tasks]);
+    // reset estado de hidratación en cada cambio de clave
+    setHydrated(false);
 
-  // Función para añadir una tarea
-  const addTask = (task) => setTasks([...tasks, task]);
+    // Migración desde la clave antigua "TASKS" si la nueva está vacía
+    let loaded = readTasks(STORAGE_KEY);
+    if ((!loaded || loaded.length === 0) && STORAGE_KEY !== "TASKS") {
+      const legacy = readTasks("TASKS");
+      if (legacy && legacy.length > 0) {
+        // migra sin borrar la legacy (compatibilidad)
+        writeTasks(STORAGE_KEY, legacy);
+        loaded = legacy;
+      }
+    }
 
-  // Función para eliminar una tarea por su índice
-  const deleteTask = (index) => setTasks(tasks.filter((_, i) => i !== index));
+    setTasks(Array.isArray(loaded) ? loaded : []);
+    lastKeyRef.current = STORAGE_KEY;
+    setHydrated(true);
+  }, [STORAGE_KEY]);
 
-  // Función para eliminar tareas completadas
-  const deleteCompleted = () => {
-    setTasks((prevTasks) => prevTasks.filter((task) => !task.completed));
-  };
+  // 2) Guardar cuando cambien (solo después de hidratar y en la clave actual)
+  useEffect(() => {
+    if (!hydrated) return;
+    if (lastKeyRef.current !== STORAGE_KEY) return; // seguridad ante carreras
+    writeTasks(STORAGE_KEY, tasks);
+    // Compat opcional: también mantener en "TASKS"
+    writeTasks("TASKS", tasks);
+  }, [tasks, hydrated, STORAGE_KEY]);
 
-  // Función para marcar una tarea como completada o incompleta
-  const toggleTaskCompletion = (index) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task, idx) =>
-        idx === index ? { ...task, completed: !task.completed } : task
+  // --- CRUD --- //
+  const addTask = (task) =>
+    setTasks((prev) => [
+      ...prev,
+      {
+        id: crypto.randomUUID?.() || Date.now(),
+        completed: task.completed ?? task.completada ?? false,
+        completada: task.completada ?? task.completed ?? false,
+        ...task,
+      },
+    ]);
+
+  const deleteTask = (index) =>
+    setTasks((prev) => prev.filter((_, i) => i !== index));
+
+  const deleteCompleted = () =>
+    setTasks((prev) => prev.filter((t) => !(t.completed || t.completada)));
+
+  const toggleTaskCompletion = (index) =>
+    setTasks((prev) =>
+      prev.map((t, i) =>
+        i === index
+          ? {
+              ...t,
+              completed: !Boolean(t.completed || t.completada),
+              completada: !Boolean(t.completed || t.completada),
+              updatedAt: Date.now(),
+            }
+          : t
       )
     );
-  };
 
-  // Función para editar una tarea
-  const editTask = (index, updatedTask) => {
-    const updatedTasks = [...tasks];
-    updatedTasks[index] = updatedTask;
-    setTasks(updatedTasks);
-  };
+  const editTask = (index, updatedTask) =>
+    setTasks((prev) =>
+      prev.map((t, i) =>
+        i === index
+          ? {
+              ...t,
+              ...updatedTask,
+              completed:
+                updatedTask.completed ??
+                updatedTask.completada ??
+                t.completed ??
+                t.completada ??
+                false,
+              completada:
+                updatedTask.completada ??
+                updatedTask.completed ??
+                t.completada ??
+                t.completed ??
+                false,
+            }
+          : t
+      )
+    );
 
   return (
     <TasksContext.Provider
@@ -60,3 +155,7 @@ export const TasksProvider = ({ children }) => {
     </TasksContext.Provider>
   );
 };
+
+
+
+

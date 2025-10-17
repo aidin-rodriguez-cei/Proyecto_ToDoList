@@ -7,8 +7,8 @@ const UserContext = createContext();
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  // variables de entorno
-  const { VITE_API_URL, VITE_BACKEND_URL } = import.meta.env;
+  // ✅ Solo una variable de entorno (unificada)
+  const { VITE_API_URL } = import.meta.env;
 
   // ver si ya estoy logueado
   useEffect(() => {
@@ -20,14 +20,9 @@ export function UserProvider({ children }) {
 
   // login
   const login = async (userData) => {
-    // console.log("Estoy en login");
-    // console.log(userData);
-
     try {
-      // Aqui enviamos los datos a nuestro backend
-      // y recibiremos la respuesta antes de establecer el usuario
-
-      const response = await fetch(`${VITE_BACKEND_URL}/api/v1/login`, {
+      // Si VITE_API_URL ya tiene /api/v1, NO repetirlo aquí
+      const response = await fetch(`${VITE_API_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,8 +30,6 @@ export function UserProvider({ children }) {
         body: JSON.stringify(userData),
       });
 
-      // el backend me devuelve mi USUARIO completo
-      // foto, nombre, email (NO CLAVE)
       const responseData = await response.json();
 
       if (!response.ok) {
@@ -44,17 +37,14 @@ export function UserProvider({ children }) {
         return responseData.message;
       }
 
-      // extraemos el usuario de la respuesta
       const usuario = responseData.data;
-
-      // guardo con setUser mis datos de usuario
       setUser(usuario);
 
-      // Guardamos el usuario en LocalStorage
       localStorage.setItem("user", JSON.stringify(usuario));
-
-      // Guardamos el JWT token en LocalStorage
       localStorage.setItem("token", responseData.token);
+
+      // Notificamos a la app que cambió el estado de auth
+      window.dispatchEvent(new Event("auth-changed"));
 
       return null; // no hay error
     } catch (e) {
@@ -66,10 +56,7 @@ export function UserProvider({ children }) {
   // registro
   const register = async (userData) => {
     try {
-      // Aqui enviamos los datos a nuestro backend
-      // y recibiremos la respuesta antes de establecer el usuario
-
-      const response = await fetch(`${VITE_BACKEND_URL}/api/v1/register`, {
+      const response = await fetch(`${VITE_API_URL}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -77,8 +64,6 @@ export function UserProvider({ children }) {
         body: JSON.stringify(userData),
       });
 
-      // el backend me devuelve mi USUARIO completo
-      // foto, nombre, email (NO CLAVE)
       const responseData = await response.json();
 
       if (!response.ok) {
@@ -86,19 +71,16 @@ export function UserProvider({ children }) {
         return responseData.message;
       }
 
-      // extraemos el usuario de la respuesta
       const usuario = responseData.data;
-
-      // guardo con setUser mis datos de usuario
       setUser(usuario);
 
-      // Guardamos el usuario en LocalStorage
       localStorage.setItem("user", JSON.stringify(usuario));
-
-      // Guardamos el JWT token en LocalStorage
       localStorage.setItem("token", responseData.token);
 
-      return null; // no hay error
+      // Notificamos a la app que cambió el estado de auth
+      window.dispatchEvent(new Event("auth-changed"));
+
+      return null;
     } catch (e) {
       console.error("Error:", e);
       return "Error en el servidor";
@@ -109,7 +91,10 @@ export function UserProvider({ children }) {
   const logout = () => {
     console.log("Estoy en logout");
     localStorage.removeItem("user");
+    localStorage.removeItem("token"); // 👈 importante para que isAuthenticated() dé false
     setUser(null);
+    // avisamos para que Home/Header se rerendericen y cambien la vista
+    window.dispatchEvent(new Event("auth-changed"));
   };
 
   return (
@@ -120,7 +105,6 @@ export function UserProvider({ children }) {
 }
 
 // Crear un Custom Hook para usar nuestro contexto de Usuario
-// Se exporta para poder usarlo desde cualquier componente.
 export function useUser() {
   return useContext(UserContext);
 }
