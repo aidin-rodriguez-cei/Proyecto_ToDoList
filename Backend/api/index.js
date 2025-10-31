@@ -1,5 +1,6 @@
-// Empaqueta la app Express para correr como Function en Vercel
-import serverless from "serverless-http";
+// Entrada serverless para Vercel: exporto la app Express.
+
 import app from "../app.js";
 
-export default serverless(app);
+export default app;
+
