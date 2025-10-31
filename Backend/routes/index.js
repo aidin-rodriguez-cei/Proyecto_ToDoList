@@ -18,6 +18,13 @@ const router = Router();
 router.use(usersRoutes);
 router.use(tasksRoutes);
 
+
+// Healthcheck 
+router.get("/health", (req, res) => {
+  res.status(200).json({ ok: true, env: process.env.NODE_ENV || "development" });
+});
+
+
 // ==========================
 // Exporto el router para usarlo en app.js
 // ==========================
