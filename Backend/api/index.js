@@ -36,8 +36,33 @@ async function connectToDatabase() {
 // Handler de Vercel
 // ===============================
 export default async function handler(req, res) {
+  // IMPORTANTE: Headers CORS para Vercel
+  const allowedOrigins = [
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "https://proyecto-to-do-list-go.vercel.app",
+  ];
+  
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+  
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
+  // Manejo de preflight
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
   // Conecto a la base de datos antes de procesar la petición
-  await connectToDatabase();
+  try {
+    await connectToDatabase();
+  } catch (error) {
+    return res.status(500).json({ error: "Error de conexión a la base de datos" });
+  }
   
   // Delego la petición a Express
   return app(req, res);
