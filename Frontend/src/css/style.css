@@ -1,36 +1,244 @@
-/* ================= GENERAL ================= */
+/* ================= IMPORTS ================= */
+/*  Estilos separados para mantener el CSS ordenado */
+@import "./filters.css";
+@import "./priority-radios.css";
+@import "./TaskCheckbox.css";
+
+/* ================= CSS VARIABLES ================= */
+/* Variables para alturas fijas del header y footer (me ayudan con el layout) */
+:root {
+  --header-h: 84px;
+  --footer-h: 56px;
+}
+
+/* ================= RESET ================= */
+/* Limpio márgenes y paddings por defecto y activo box-sizing práctico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Hago que la página pueda crecer y tener scroll vertical correcto */
 html {
   min-height: 100%;
   position: relative;
   overflow-y: auto;
 }
 
+/* Estilos base del body: tipografía, fondo y layout en columna.
+   Agrego padding-top del alto del header fijo para que no tape el contenido. */
 body {
   font-family: "Nunito", "Public Sans", sans-serif;
   background-color: #f3f3f3;
   font-size: 16px;
-  margin-bottom: 100px;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: var(--header-h);
 }
 
+/* Botones sin estilos de navegador y con cursor de mano */
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Evito que los <textarea> se estiren manualmente (para mantener el diseño) */
+textarea {
+  resize: none;
+}
+
+/* Oculto los checkboxes nativos (los pinto con CSS en otro archivo) */
+input[type="checkbox"] {
+  display: none;
+}
+
+/* Al etiquetar el checkbox, que el puntero sea clickeable */
+input[type="checkbox"] + label {
+  cursor: pointer;
+}
+
+/* ================= BASE STYLES  ================= */
+/* Contenedor común para centrar el contenido y limitar ancho */
 .container {
   width: 80%;
   margin: 0 auto;
   font-family: "Nunito", "Public Sans", sans-serif;
 }
 
+/* Clase de utilidad para esconder elementos */
 .hidden {
   display: none;
 }
 
 /* ================= HEADER ================= */
-
+/* Header fijo en la parte superior con sombra sutil */
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-h);
+  background-color: #b7d9db;
+  width: 100%;
+  min-width: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+/* Contenido interno del header: logo/título a la izquierda y menú a la derecha */
+header .container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Iconos dentro del header */
+header img {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+/* Título de la app */
+.header-name {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* ================= TOGGLE BUTTON ================= */
+/* Botón para alternar modo claro/oscuro */
+.theme-toggle {
+  padding: 10px 15px;
+  border: none;
+  background-color: inherit;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 80px;
+  font-family: inherit;
+}
+
+/* Pequeño hover para feedback visual */
+.theme-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* ================= DROPDOWN MENU ================= */
+/* Contenedor del menú desplegable (posición relativa para anclar el dropdown) */
+.menu-container {
+  position: relative;
+}
+
+/* Botón que abre/cierra el menú */
+.menu-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Capa del menú desplegable */
+.menu-dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding-top: 16px;
+  overflow: hidden;
+  z-index: 10;
+  width: 240px;
+  box-sizing: border-box;
+}
+
+/* Enlaces dentro del menú */
+.menu-dropdown a {
+  display: block;
+  padding: 12px 25px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Hover de los enlaces del menú */
+.menu-dropdown a:hover {
+  background-color: #f3f3f3;
+}
+
+/* Botón de cerrar el menú (X) */
+.close-menu-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Hover del icono de cierre */
+.close-menu-icon:hover {
+  color: #b7d9db;
+}
+
+/* ================= USER LOGIN ================= */
+/* Avatar del usuario en el menú */
+.user-login {
+  border-radius: 50%;
+  display: inline;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+/* Texto junto al avatar (username) */
+.user-login-text {
+  display: inline;
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ================= LAYOUT ================= */
+/* Layout base de la app: columna y mínimo alto pantalla */
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Zona principal entre header y footer */
+.app-main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+/* Contenedor de páginas como login/registro (sin botón flotante) */
+.page-container {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header dentro de páginas específicas (mantengo estilos coherentes) */
+.page-container header {
   background-color: #b7d9db;
   width: 100%;
   padding: 20px;
@@ -39,33 +247,20 @@ header {
   justify-content: center;
 }
 
-header .container {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* En páginas de login/registro no muestro el botón flotante del footer */
+.page-container footer button {
+  display: none;
 }
-
-header img {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-}
-
 
 /* ================= BACKGROUND ================= */
-
+/* Sección de “no hay tareas” centrada verticalmente */
 .section-back {
   text-align: center;
   width: 100%;
   margin: 20% auto 10px;
 }
 
-.header-name {
-  font-size: 28px;
-  font-weight: bold;
-}
-
+/* Contenedor centrado para mensajes/ilustraciones */
 .back {
   display: flex;
   flex-direction: column;
@@ -77,6 +272,7 @@ header img {
   margin: 0;
 }
 
+/* Imagen de estado vacío */
 .back img {
   width: 150px;
   height: auto;
@@ -84,124 +280,128 @@ header img {
 }
 
 /* ================= TASK LIST ================= */
-
+/* Tarjeta contenedora de la lista de tareas */
 .tasks {
   width: 80%;
   min-height: 100px;
-  margin: 10px auto 10px;
+  margin: 10px auto;
   background-color: #fff;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 1px 3px 10px 1px #aaa;
 }
 
+/* Cada tarea como fila con sombra y borde */
 .task-item {
   width: 100%;
   margin-top: 10px;
-  padding: 25px 10px;
-  background-color: #f3f3f3;
-  border-radius: 10px;
+  padding: 15px 20px;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
+/* Hover suave para resaltar la tarea */
 .task-item:hover {
-  background: #ddd;
+  background-color: #f8f9fa;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+  transform: translateY(-1px);
 }
 
-.completed {
-  text-decoration: line-through;
-  background: #bdbdbd;
-  padding: 8px 8px;
-}
-
-.delete {
-  float: right;
-  margin-right: 10px;
-}
-
-.delete i {
-  margin-right: 4px;
-  margin-bottom: 16px;
-}
-
-.high-priority {
-  border-left: 3px solid rgb(250, 101, 126);
-}
-
-.medium-priority {
-  border-left: 3px solid rgb(235, 200, 134);
-}
-
-.low-priority {
-  border-left: 3px solid rgb(134, 210, 134);
-}
-
+/* Espacios internos entre elementos de la tarea */
 .task-item > * {
   padding: 0 5px;
   cursor: pointer;
 }
 
-.borrar {
-  margin-left: 10px;
-}
-
-.task-item i {
-  font-size: 1.3em;
-}
-
+/* El label (título+desc) crece para ocupar el centro de la fila */
 .task-item > label {
   flex-grow: 2;
   margin: 0px 14px;
+  font-size: 1rem;
 }
 
-i:hover {
-  color: #434343;
+/* Iconos de acción (trash, edit) */
+.task-item i {
+  font-size: 1.1em;
+  color: #6c757d;
 }
 
-input[type="checkbox"] {
-  display: none;
+/* Estilo cuando la tarea está completada */
+.completed {
+  text-decoration: line-through;
+  background-color: #e9ecef;
+  opacity: 0.8;
+  padding: 8px;
 }
 
-input[type="checkbox"] + label {
-  cursor: pointer;
+/* Contenedor del botón borrar (alineación a la derecha) */
+.delete {
+  float: right;
+  margin-right: 10px;
 }
 
-.tyc {
-  display: inline-flex;       
-  align-items: center;  
-  margin-bottom: 20px;
-  }
-
-.tyc input[type="checkbox"] {
-  display: inline-block; 
-  margin-top: 12px;    
-  margin-right: 8px;          
-  cursor: pointer;           
-  width: auto;                
-  height: auto;          
+/* Ajustes de los iconos dentro de borrar */
+.delete i {
+  margin-right: 4px;
+  margin-bottom: 16px;
 }
 
-
-/* ================= FORM ================= */
-
-textarea {
-  resize: none;
+/* Bloques clickeables para acciones */
+.borrar {
+  margin-left: 15px;
+  padding: 8px;
+  border-radius: 0.25rem;
+  transition: all 0.15s ease-in-out;
 }
 
+/* Hover de acciones */
+.borrar:hover {
+  background-color: rgba(108, 117, 125, 0.1);
+}
+
+/* Cambia color del icono al pasar el mouse */
+.borrar:hover i {
+  color: #343a40;
+}
+
+/* ================= TASK PRIORITY  ================= */
+/* Colores laterales para identificar prioridad de la tarea */
+.high-priority {
+  border-left: 4px solid #dc3545;
+  background-color: rgba(220, 53, 69, 0.05);
+}
+
+.medium-priority {
+  border-left: 4px solid #ffc107;
+  background-color: rgba(255, 193, 7, 0.05);
+}
+
+.low-priority {
+  border-left: 4px solid #28a745;
+  background-color: rgba(40, 167, 69, 0.05);
+}
+
+/* ================= FORMS  ================= */
+/* Tarjeta del formulario crear/editar tarea */
 #form {
   width: 40%;
   min-width: 300px;
   margin: 20px auto 100px;
   background-color: #fcfcfc;
-  padding: 15px 30px 15px;
+  padding: 40px;
   box-shadow: 1px 4px 10px 1px #aaa;
   border-radius: 10px;
   z-index: 2;
 }
 
+/* Título del formulario */
 #form h2 {
   text-align: center;
   margin-bottom: 30px;
@@ -209,6 +409,7 @@ textarea {
   font-weight: 700;
 }
 
+/* Inputs y selects con estilo uniforme */
 #form input[type="text"],
 #form select,
 #form option,
@@ -223,25 +424,29 @@ textarea {
   padding: 5px 15px;
 }
 
+/* Altura base de los inputs y selects */
 #form input[type="text"],
 #form select,
 #form option {
   height: 32px;
 }
 
+/* Tamaño de fuente de las opciones */
 #form option {
   font-size: 1.1em;
 }
 
+/* Textarea ocupa todo el ancho del formulario */
 #form textarea {
   width: 100%;
 }
 
+/* Etiquetas del formulario más compactas */
 #form label {
-  color: #777;
   font-size: 0.8em;
 }
 
+/* Botón principal del formulario */
 #form .btnAdd {
   display: block;
   margin: 20px auto 0;
@@ -257,6 +462,7 @@ textarea {
   font-size: 16px;
 }
 
+/* Botón de cerrar formulario (icono X) */
 #form .cerrar button {
   float: right;
   position: relative;
@@ -265,16 +471,184 @@ textarea {
   font-size: 1.5em;
 }
 
-/* ================= CUSTOM RADIOS ================= */
+/* Bloque “términos y condiciones” (alineado con su checkbox) */
+.tyc {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
+/* Checkbox visible dentro de “tyc” (este sí se muestra) */
+.tyc input[type="checkbox"] {
+  display: inline-block;
+  margin-top: 12px;
+  margin-right: 8px;
+  cursor: pointer;
+  width: auto;
+  height: auto;
+}
+
+/* ================= FORMS - LOGIN/REGISTER ================= */
+/* Centro el área de login/registro dentro de la página */
+.form-center-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 2rem 1rem;
+}
+
+/* Tarjeta del formulario de login/registro */
+.form-box {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Título del form (login/registro) */
+.form-box h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #333;
+  text-align: center;
+}
+
+/* Título grande de caja de texto en esas pantallas */
+.box-text h1 {
+  margin-top: 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Párrafo de explicación debajo del título */
+.box-text p {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Campos del formulario de login/registro */
+.form-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Botón de enviar (login/registro) */
+.form-box button {
+  width: 100%;
+  padding: 10px;
+  background-color: #b7d9db;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover del botón en forms */
+.form-box button:hover {
+  background-color: #a0c7c9;
+}
+
+/* Mensaje de error en los forms */
+.form-box .error {
+  color: #ff4d4f;
+}
+
+/* Párrafo con link (“¿no tienes cuenta?”) */
+.form-box p {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--text-color, #333);
+}
+
+/* Enlace debajo del formulario */
+.form-box p .text-link {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 4px;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+/* Hover del enlace debajo del form */
+.form-box p .text-link:hover {
+  color: #b7d9db;
+  text-decoration: underline;
+}
+
+/* ================= CUSTOM RADIOS ================= */
+/* Grupo de radios personalizados para colores/etiquetas */
+.custom-radios {
+  display: flex;
+  gap: 15px;
+  margin: 10px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Cada radio en línea */
 .custom-radios div {
   display: inline-block;
 }
 
+/* Oculto los radios nativos (pinto el span) */
+.custom-radios input[type="radio"] {
+  display: none;
+}
+
+/* Texto de los labels de los radios */
+.custom-radios input[type="radio"] + label {
+  color: #333;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* “Píldoras” de las opciones */
+.custom-radios input[type="radio"] + label span {
+  width: 100px;
+  height: 40px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* Sombra más marcada cuando está seleccionado */
+.custom-radios input[type="radio"]:checked + label span {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Seguridad: si hay otro input interno, lo oculto igual */
 .custom-radios div input {
   display: none;
 }
 
+/* Cuadritos de color mini (cuando uso icono) */
 .custom-radios div label span {
   display: inline-block;
   width: 26px;
@@ -291,11 +665,13 @@ textarea {
   line-height: 21px;
 }
 
+/* Imagen dentro del label (si la uso) empieza oculta */
 .custom-radios label span img {
   opacity: 0;
   transition: all 0.1s ease;
 }
 
+/* Colores de ejemplo para radios personalizados */
 #color-1 + label span {
   background-color: #434343;
 }
@@ -312,10 +688,12 @@ textarea {
   background-color: rgb(250, 101, 126);
 }
 
+/* Muestro icono cuando está chequeado */
 input:checked + label span img {
   opacity: 1;
 }
 
+/* Borde marcado cuando está chequeado */
 input:checked + label span {
   opacity: 1;
   border: 2px solid #434343;
@@ -324,464 +702,111 @@ input:checked + label span {
   align-items: center;
 }
 
-/* ================= FILTROS ================= */
-
-.filters {
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.filters label {
-  margin-right: 10px;
-  font-weight: bold;
-}
-
-.filters select {
-  margin-right: 20px;
-  padding: 5px;
-}
-
-/* Ajustes en pantallas pequeñas */
-@media (max-width: 768px) {
-  .filters {
-    flex-wrap: wrap;
-  }
-
-  .filters label,
-  .filters select {
-    margin-bottom: 10px; 
-    margin-right: 0; /
-  }
-
-  .filters select {
-    width: 100%; 
-  }
-}
-
-
-/* ================= FOOTER ================= */
-
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 50px;
-  background-color: #b7d9db80;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: #333;
-  z-index: 1;
-}
-
-footer p {
-  margin: 12px;
-  font-size: 12px !important;
-}
-
-footer button {
-  float: right;
-  margin-right: 20px;
-}
-
-/* ================= BOTON EN EL FOOTER ================= */
-
-button {
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
+/* ================= FLOATING BUTTON ================= */
+/* Botón flotante para agregar tarea (solo en vistas con sesión) */
 button#add {
-  position: fixed; 
-  bottom: 100px; 
-  right: 20px; 
-  background-color: #b7d9db; 
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  background-color: #b7d9db;
   border: none;
-  border-radius: 50%; 
+  border-radius: 50%;
   padding: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   z-index: 10;
 }
 
+/* Tamaño del ícono dentro del botón flotante */
 button#add img {
   width: 30px;
   height: 30px;
 }
 
-/* Ajustes en pantallas pequeñas */
-@media (max-width: 768px) {
-  button#add {
-    bottom: 80px;
-    right: 10px;
-    padding: 12px;
-  }
-
-  button#add img {
-    width: 26px;
-    height: 26px;
-  }
-}
-
-/* ================= BOTON CAMBIAR TEMA CLARO/OSCURO ================= */
-
-/* Estilos para el tema oscuro */
-
-#dark-body {
-  background-color: #333;
-  color: #fff;
-}
-
-.dark {
-  background-color: #333;
-  color: #fff;
-}
-
-.dark header {
-  background-color: #444;
-}
-
-.dark .theme-toggle {
-  color: #fff;
-  background-color: #555;
-}
-
-.dark .header-name {
-  color: #fff;
-}
-
-.dark .footer {
-  color: #fff;
-  background-color: #555;
-}
-
-.dark #add {
-  background-color: #ffff;
-}
-
-.dark header .menu-button img,
-.dark .header-name img {
-  filter: brightness(0) saturate(100%) invert(1);
-}
-
-.dark .back img {
-  filter: brightness(0) saturate(100%) invert(1);
-}
-
-.dark .task-dark {
-  color: #333;
-}
-
-.dark,
-.filters .task-dark {
-  color: #333;
-}
-
-.dark p {
-  color: #ffff !important;
-}
-
-.dark .btnAdd {
-  background-color: #555 !important;
-  color: #ffff !important;
-}
-
-/* Estilos para el tema claro */
-.light {
-  background-color: #f3f3f3;
-  color: #333;
-}
-
-.light header {
-  background-color: #b7d9db;
-}
-
-.light .theme-toggle {
-  color: #333;
-  background-color: #acc8c8a9;
-}
-
-.light .header-name {
-  color: #333;
-}
-
-/* Estilo para el botón de cambiar tema */
-.theme-toggle {
-  padding: 10px 15px;
-  border: none;
-  background-color: inherit;
-  color: inherit;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 80px;
-  font-family: inherit;
-}
-
-.theme-toggle:hover {
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-/* ================= MENU DESPLEGABLE ================= */
-
-.menu-container {
+/* ================= FOOTER ================= */
+/* Footer al final de la página, con fondo suave */
+footer {
   position: relative;
-}
-
-.menu-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.menu-dropdown {
-  position: absolute;
-  top: 40px;
-  right: 0;
-  background-color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
-  z-index: 10;
-  width: 200px;
-}
-
-.menu-dropdown a {
-  display: block;
-  padding: 12px 25px;
-  text-decoration: none;
-  color: #333;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.menu-dropdown a:hover {
-  background-color: #f3f3f3;
-}
-
-/* Estilos para el tema oscuro */
-.dark .menu-dropdown {
-  background-color: #444;
-}
-
-.dark .menu-dropdown a {
-  color: #fff;
-}
-
-.dark .menu-dropdown a:hover {
-  background-color: #555;
-}
-
-/* Estilos para botón de cierre del menu */
-.menu-dropdown {
-  position: absolute;
-  top: 40px; 
-  right: 0px; 
-  background-color: #fff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding-top: 16px;
-  box-sizing: border-box;
-}
-
-.close-menu-icon {
-  position: absolute; 
-  top: 20px; 
-  right: 20px; 
-  background: none; 
-  border: none; 
-  font-size: 1.2rem; 
-  color: #333; 
-  cursor: pointer; 
-}
-
-.close-menu-icon:hover {
-  color: #b7d9db; 
-}
-
-/* Tema oscuro */
-.dark .menu-dropdown {
-  background-color: #333;
-  color: #fff;
-}
-
-.dark .close-menu-icon {
-  color: #fff;
-}
-
-
-/* ================= FORMULARIOS ================= */
-
-/* Contenedor principal para Login y Registro */
-.page-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.page-container header {
-  background-color: #b7d9db;
   width: 100%;
-  padding: 20px;
-  min-width: 300px;
+  background-color: #b7d9db80;
   display: flex;
-  justify-content: center;
-}
-
-.page-container footer button {
-  display: none;
-}
-
-/* Contenedor para centrar el formulario */
-.form-center-container {
-  flex-grow: 1; 
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  padding: 40px;
-}
-
-/* Estilo para el formulario */
-.form-box {
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-  width: 100%;
-  max-width: 400px;
-}
-
-/* Estilo para títulos del formulario */
-.form-box h2 {
-  margin-bottom: 20px;
-  font-size: 22px;
-  color: #333;
   text-align: center;
+  color: #333;
+  padding: 12px 0;
+  flex-shrink: 0;
+  margin-top: auto;
 }
 
-/* Estilo para textos del formulario */
-.box-text h1 {
-  margin-top: 0;
-  font-size: 22px;
-  font-weight: 600;
-  color: #333;
+/* Texto pequeño del footer */
+footer p {
+  margin: 0;
+  font-size: 12px !important;
+}
+
+/* Botón dentro del footer (si aparece) */
+footer button {
+  float: right;
+  margin-right: 20px;
+}
+
+/* ================= HOME PÚBLICA (sin sesión) ================= */
+/* Layout de la home pública (centrado vertical y horizontal) */
+.home-public {
+  min-height: 100vh;
   display: flex;
-  text-align: center;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
-.box-text p {
-  margin-top: 10px;
-  margin-bottom: 30px;
-  font-size: 14px;
+/* Main de la home: ocupa pantalla menos header y footer, centra contenido */
+.home-public-main {
+  flex: 1 0 auto;
+  min-height: calc(100vh - var(--header-h) - var(--footer-h));
+  display: grid;
+  place-items: center;
+  padding: clamp(16px, 4vh, 48px) 16px;
+  justify-content: center;
+}
+
+/* Tarjeta central (texto y botones de login/registro) */
+.home-public-main section {
+  width: min(92vw, 560px);
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  max-width: 520px;
+}
+
+/* Botones de acción en la home pública */
+.home-public-main a {
+  display: inline-block;
+  border-radius: 9999px;
+  border: 2px solid #cfd8dc;
+  padding: 10px 24px;
   font-weight: 600;
-  color: #333;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* Estilo para inputs */
-.form-box input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-/* Botón de enviar */
-.form-box button {
-  width: 100%;
-  padding: 10px;
-  background-color: #b7d9db;
-  color: #333;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.form-box button:hover {
-  background-color: #a0c7c9;
-}
-
-.form-box .error {
-  color: #ff4d4f;
-}
-
-/* Estilos para el tema oscuro */
-.dark .form-box {
-  background-color: #444;
-  color: #fff;
-}
-
-.dark .form-box input {
-  background-color: #333;
-  color: #fff;
-  border: 1px solid #555;
-}
-
-.dark .form-box button {
-  background-color: #555;
-  color: #fff;
-}
-
-.dark .form-box button:hover {
-  background-color: #666;
-}
-
-.dark .form-box .error {
-  color: #ff6f6f;
-}
-
-.dark header {
-  background-color: #444 !important;
-}
-
-.dark .box-text h1 {
-  color: #ffff;
-}
-
-.dark .form-box h2 {
-  color: #ffff;
-}
-
-/* Centrar el enlace al registro debajo del formulario */
-.form-box p {
-  text-align: center;
-  margin-top: 1.5rem;
-  font-size: 0.95rem;
-  color: var(--text-color, #333);
-}
-
-/* Estilo del enlace */
-.form-box p .text-link {
   color: #333;
   text-decoration: none;
-  font-weight: 500;
-  margin-left: 4px;
-  transition: color 0.3s ease, text-decoration 0.3s ease;
+  background: white;
+  transition: all 0.3s ease;
 }
 
-/* Efecto hover */
-.form-box p .text-link:hover {
-  color: #b7d9db;
-  text-decoration: underline;
+/* Hover de esos botones */
+.home-public-main a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
+/* Variación de hover para los enlaces principales */
+.home-public-main a[href*="login"]:hover,
+.home-public-main a[href*="registro"]:hover {
+  background-color: #b7d9db;
+  color: #333;
+  border-color: #b7d9db;
+}
 
-
-/* ================= PÁGINA DE ERROR  ================= */
-
+/* ================= ERROR PAGE ================= */
+/* Página de error 404/500 centrada */
 .error-page {
   display: flex;
   flex-direction: column;
@@ -792,17 +817,19 @@ button#add img {
   padding: 50px;
 }
 
+/* Título grande para el error */
 .error-page h1 {
   font-size: 2.5em;
   margin-bottom: 20px;
 }
 
+/* Mensaje debajo del título */
 .error-page p {
   font-size: 1.2em;
   margin-bottom: 20px;
 }
 
-/* Enlace dentro del texto */
+/* Link para volver a inicio desde el error */
 .link-home {
   color: #5e8d90;
   font-weight: bold;
@@ -810,55 +837,13 @@ button#add img {
   transition: color 0.3s ease;
 }
 
+/* Hover del link de regreso */
 .link-home:hover {
   color: #b7d9db;
 }
 
-
-/* Tema oscuro */
-.dark .error-page h1 {
-  color: #ffffff;
-}
-
-.dark .error-page p {
-  color: #dddddd;
-}
-
-.dark .link-home {
-  color: #b7d9db;
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.dark .link-home:hover {
-  color: #5e8d90;
-}
-
-/* ================= LOGIN ================= */
-
-.user-login {
-  border-radius: 50%; 
-  display: inline;
-  margin-left: 20px;
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
-
-.user-login-text {
-  display: inline;
-  margin-left: 5px;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.dark .user-login-text {
-color: #ffff
-}
-
-
-/* ================= TOAST MESSAGES (ALERTAS) ================= */
-
+/* ================= MESSAGES ================= */
+/* Contenedor de toasts (notificaciones) en la esquina superior derecha */
 .toast-container {
   position: fixed;
   top: 16px;
@@ -884,24 +869,18 @@ color: #ffff
   animation: toastIn 0.4s ease forwards, toastOut 0.4s ease 2.2s forwards;
 }
 
-/* Éxito */
+/* Colores por tipo de toast */
 .toast.success {
-  background-color: #7bbe7a; 
+  background-color: #7bbe7a;
 }
-
-/* Información */
 .toast.info {
-  background-color: #4a6fb5; /
+  background-color: #4a6fb5;
 }
-
-/* Error */
 .toast.error {
-  background-color: #e03f4c; 
+  background-color: #e03f4c;
 }
 
-
-
-/* ✨ Animaciones */
+/* Animación de entrada */
 @keyframes toastIn {
   from {
     opacity: 0;
@@ -913,6 +892,7 @@ color: #ffff
   }
 }
 
+/* Animación de salida */
 @keyframes toastOut {
   to {
     opacity: 0;
@@ -920,85 +900,346 @@ color: #ffff
   }
 }
 
-/* ======= HOME PÚBLICO (sin sesión) ======= */
-.home-public {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+/* ================= DARK THEME ================= */
+/* Estilos generales cuando el body está en modo oscuro */
+#dark-body,
+.dark {
+  background-color: #333;
+  color: #fff;
 }
 
-.home-public-main {
-  flex: 1;                      /* ocupa el espacio entre header y footer */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 32px 16px;
-  min-height: calc(100vh - 200px); /* aprox alto header+footer */
+/* Header en modo oscuro */
+.dark header {
+  background-color: #444 !important;
 }
 
-/* Tarjeta central (opcional, para mejor look) */
-.home-public-main section {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.1);
-  max-width: 520px;
-  width: 90%;
+/* Botón de tema en oscuro */
+.dark .theme-toggle {
+  color: #fff;
+  background-color: #555;
 }
 
-/* Tema oscuro (opcional) */
+/* Título en el header claro en modo oscuro */
+.dark .header-name {
+  color: #fff;
+}
+
+/* Footer en modo oscuro */
+.dark footer {
+  color: #fff;
+  background-color: #555;
+}
+
+/* Botón flotante con fondo claro en oscuro (contraste) */
+.dark #add {
+  background-color: #ffff;
+}
+
+/* Invierto colores de iconos en header y título si hay imágenes */
+.dark header .menu-button img,
+.dark .header-name img {
+  filter: brightness(0) saturate(100%) invert(1);
+}
+
+/* Invierto el icono/imagen de estado vacío */
+.dark .back img {
+  filter: brightness(0) saturate(100%) invert(1);
+}
+
+/* Textos oscuros forzados a blanco en modo dark */
+.dark .task-dark {
+  color: #fff;
+}
+
+/* Párrafos al blanco en oscuro */
+.dark p {
+  color: #ffff !important;
+}
+
+/* Botón principal del form en oscuro */
+.dark .btnAdd {
+  background-color: #555 !important;
+  color: #ffff !important;
+}
+
+/* Menú desplegable en oscuro */
+.dark .menu-dropdown {
+  background-color: #444;
+}
+
+/* Enlaces del menú en blanco en oscuro */
+.dark .menu-dropdown a {
+  color: #fff;
+}
+
+/* Hover del menú en oscuro */
+.dark .menu-dropdown a:hover {
+  background-color: #555;
+}
+
+/* Icono de cerrar menú en blanco en oscuro */
+.dark .close-menu-icon {
+  color: #fff;
+}
+
+/* Texto de username en blanco en oscuro */
+.dark .user-login-text {
+  color: #ffff;
+}
+
+/* Tarjeta de form en oscuro */
+.dark .form-box {
+  background-color: #444;
+  color: #fff;
+}
+
+/* Inputs del form en oscuro */
+.dark .form-box input {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+/* Botón del form en oscuro */
+.dark .form-box button {
+  background-color: #555;
+  color: #fff;
+}
+
+/* Hover del botón del form en oscuro */
+.dark .form-box button:hover {
+  background-color: #666;
+}
+
+/* Error de form con tono más claro en oscuro */
+.dark .form-box .error {
+  color: #ff6f6f;
+}
+
+/* Títulos claros en cajas de texto en oscuro */
+.dark .box-text h1 {
+  color: #ffff;
+}
+
+/* Títulos de form en oscuro */
+.dark .form-box h2 {
+  color: #ffff;
+}
+
+/* Enlace debajo del form en blanco en oscuro */
+.dark .form-box p .text-link {
+  color: #ffff;
+}
+
+/* Hover de enlace en blanco en oscuro */
+.dark .form-box p .text-link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Tarjeta de home pública en oscuro */
 .dark .home-public-main section {
   background: #333;
   color: #fff;
 }
 
-/* ======== BOTONES DE HOME (iniciar sesión / crear cuenta) ======== */
-
-.home-public-main a {
-  display: inline-block;
-  border-radius: 9999px;
-  border: 2px solid #cfd8dc;
-  padding: 10px 24px;
-  font-weight: 600;
-  color: #333;
-  text-decoration: none;
-  background: white;
-  transition: all 0.3s ease;
-}
-
-/* Hover general */
-.home-public-main a:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-/* Hover específico */
-.home-public-main a[href*="login"]:hover {
-  background-color: #b7d9db; 
-  color: #333;
-  border-color: #b7d9db; 
-}
-
-.home-public-main a[href*="registro"]:hover {
-  background-color: #b7d9db; 
-  color: #333;
-  border-color: #b7d9db; 
-}
-
-/* Modo oscuro */
+/* Botones de home pública en oscuro */
 .dark .home-public-main a {
   background-color: #444;
   color: #fff;
   border-color: #777;
 }
 
+/* Hover de los botones en oscuro */
 .dark .home-public-main a:hover {
   box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+  color: #fff;
 }
 
-.dark .home-public-main a[href*="login"]:hover {
-  background-color: #b7d9db; 
-}
-
+/* Hover específico de login/registro en oscuro */
+.dark .home-public-main a[href*="login"]:hover,
 .dark .home-public-main a[href*="registro"]:hover {
-  background-color: #b7d9db; 
+  background-color: #7777;
+  color: #fff;
+  border-color: #fff;
+}
+
+/* Título y texto de página de error en oscuro */
+.dark .error-page h1 {
+  color: #ffffff;
+}
+.dark .error-page p {
+  color: #dddddd;
+}
+
+/* Link de volver a home en oscuro */
+.dark .link-home {
+  color: #b7d9db;
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.dark .link-home:hover {
+  color: #5e8d90;
+}
+
+/* ================= DARK THEME - TASK LIST ================= */
+/* Contenedores y tarjetas adaptados a modo oscuro */
+.dark .tasks {
+  background-color: #2a2a2a;
+  box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.5);
+}
+
+/* Cada item de tarea en oscuro */
+.dark .task-item {
+  background-color: #3a3a3a;
+  border: 1px solid #555;
+  color: #fff;
+}
+
+/* Hover de las tareas en oscuro */
+.dark .task-item:hover {
+  background-color: #454545;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Label de la tarea en blanco */
+.dark .task-item > label {
+  color: #fff;
+}
+
+/* Iconos más claros al pasar el mouse */
+.dark .task-item i {
+  color: #999;
+}
+.dark .task-item:hover i {
+  color: #bbb;
+}
+
+/* Tareas completadas en oscuro */
+.dark .completed {
+  background-color: #4a4a4a;
+  color: #888;
+}
+.dark .completed i {
+  color: #666;
+}
+
+/* Hover de acciones en oscuro */
+.dark .borrar:hover {
+  background-color: rgba(200, 200, 200, 0.1);
+}
+.dark .borrar:hover i {
+  color: #ddd;
+}
+
+/* Primer icono de la tarea (categoría) en tono suave */
+.dark .task-item > i:first-child {
+  color: #aaa;
+  opacity: 0.9;
+}
+
+/* ================= DARK THEME - TASK  ================= */
+/* Colores laterales de prioridades ajustados para oscuro */
+.dark .high-priority {
+  border-left: 4px solid #dc3545;
+  background-color: rgba(220, 53, 69, 0.15);
+}
+.dark .medium-priority {
+  border-left: 4px solid #ffc107;
+  background-color: rgba(255, 193, 7, 0.15);
+}
+.dark .low-priority {
+  border-left: 4px solid #28a745;
+  background-color: rgba(40, 167, 69, 0.15);
+}
+
+/* ================= DARK THEME - FORMS (Nueva tarea / Editar) ================= */
+/* Form de crear/editar con fondo y bordes en oscuro */
+.dark #form {
+  background-color: #2a2a2a;
+  box-shadow: 1px 4px 10px 1px rgba(0, 0, 0, 0.7);
+}
+
+/* Título y labels en blanco */
+.dark #form h2 {
+  color: #fff;
+}
+.dark #form label {
+  color: #fff;
+}
+
+/* Campos del form en oscuro */
+.dark #form input[type="text"],
+.dark #form select,
+.dark #form option,
+.dark #form textarea {
+  background-color: #3a3a3a;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+/* Opciones del select en blanco */
+.dark #form option {
+  background-color: #3a3a3a;
+  color: #fff;
+}
+
+/* Botón del form en oscuro */
+.dark #form .btnAdd {
+  background-color: #555 !important;
+  color: #fff !important;
+}
+
+/* Hover del botón del form en oscuro */
+.dark #form .btnAdd:hover {
+  background-color: #666 !important;
+}
+
+/* Botón de cierre del form en blanco */
+.dark #form .cerrar button {
+  color: #fff;
+}
+
+/* ================= LIGHT THEME  ================= */
+/* Modo claro (valores por defecto) */
+.light {
+  background-color: #f3f3f3;
+  color: #333;
+}
+
+/* Header en claro */
+.light header {
+  background-color: #b7d9db;
+}
+
+/* Botón de tema en claro */
+.light .theme-toggle {
+  color: #333;
+  background-color: #acc8c8a9;
+}
+
+/* Título del header en claro */
+.light .header-name {
+  color: #333;
+}
+
+/* ================= RESPONSIVE - MOBILE ================= */
+/* Ajustes generales para pantallas pequeñas */
+@media (max-width: 768px) {
+  .app-main {
+    margin-top: 1.25rem;
+  }
+
+  /* Botón flotante más pequeño y cercano al borde */
+  button#add {
+    bottom: 80px;
+    right: 10px;
+    padding: 12px;
+  }
+
+  button#add img {
+    width: 26px;
+    height: 26px;
+  }
 }

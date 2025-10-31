@@ -1,0 +1,159 @@
+/* ================= GRUPO DE PRIORIDADES ================= */
+/* Contenedor que organiza los botones de prioridad (radio) */
+.priority-radios {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+  align-items: stretch;
+  margin-top: 0.5rem;
+}
+
+/* Cada opción de prioridad se envuelve en este bloque */
+.priority-radio {
+  position: relative;
+}
+
+/* Ocultamos el input real para diseñar el label a gusto */
+.priority-radio input[type="radio"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Estilo base de los labels (los botones visibles) */
+.priority-radio label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 40px;
+  padding: 0.5rem 0.75rem;
+  border-radius: 50px;
+  background: #f7f8fa;
+  color: #2d2d2d;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
+  box-sizing: border-box;
+  text-align: center;
+  user-select: none;
+}
+
+/* Efecto al pasar el mouse */
+.priority-radio label:hover {
+  background-color: #eef1f4;
+}
+
+/* Efecto visual cuando está seleccionado */
+.priority-radio input:checked + label {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ================= COLORES DE PRIORIDAD ================= */
+/* Sin prioridad */
+.priority-none label {
+  background: #f1f3f5;
+}
+.priority-none input:checked + label {
+  background: #e9ecef;
+}
+
+/* Prioridad baja (verde) */
+.priority-low label {
+  background: #d8f5d0;
+}
+.priority-low input:checked + label {
+  background: #b7efb1;
+}
+
+/* Prioridad media (amarilla) */
+.priority-medium label {
+  background: #ffe8a3;
+}
+.priority-medium input:checked + label {
+  background: #ffdb6e;
+}
+
+/* Prioridad alta (roja) */
+.priority-high label {
+  background: #ffb3b8;
+  border-color: #ff8787;
+}
+.priority-high input:checked + label {
+  background: #ff9aa1;
+  border-color: #fa5252;
+}
+
+/* ================= MODO OSCURO ================= */
+/* Colores adaptados para fondo oscuro */
+.dark .priority-radio label {
+  background: #3a3a3a;
+  color: #e0e0e0;
+}
+
+.dark .priority-radio label:hover {
+  background-color: #454545;
+}
+
+.dark .priority-radio input:checked + label {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Sin prioridad (modo oscuro) */
+.dark .priority-none label {
+  background: #3a3a3a;
+  color: #aaa;
+}
+.dark .priority-none input:checked + label {
+  background: #4a4a4a;
+  color: #ccc;
+}
+
+/* Prioridad baja (modo oscuro) */
+.dark .priority-low label {
+  background: #2d4a2d;
+  color: #b7efb1;
+}
+.dark .priority-low input:checked + label {
+  background: #3d5a3d;
+  color: #d8f5d0;
+}
+
+/* Prioridad media (modo oscuro) */
+.dark .priority-medium label {
+  background: #4a4020;
+  color: #ffdb6e;
+}
+.dark .priority-medium input:checked + label {
+  background: #5a5030;
+  color: #ffe8a3;
+}
+
+/* Prioridad alta (modo oscuro) */
+.dark .priority-high label {
+  background: #4a2d2d;
+  color: #ff9aa1;
+  border-color: #ff8787;
+}
+.dark .priority-high input:checked + label {
+  background: #5a3d3d;
+  color: #ffb3b8;
+  border-color: #fa5252;
+}
+
+/* ================= RESPONSIVE ================= */
+/* Ajuste en pantallas pequeñas */
+@media (max-width: 560px) {
+  .priority-radios {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* En pantallas muy pequeñas, se muestra en una sola columna */
+@media (max-width: 360px) {
+  .priority-radios {
+    grid-template-columns: 1fr;
+  }
+}

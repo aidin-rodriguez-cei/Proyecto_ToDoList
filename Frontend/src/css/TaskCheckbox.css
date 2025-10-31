@@ -1,0 +1,116 @@
+/* ================= TASK CHECKBOX  ================= */
+/* Componente visual del checkbox de cada tarea (tamaño e interacción) */
+.task-checkbox {
+  display: inline-block;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* Oculto el checkbox nativo y uso el label + SVG para el estilo */
+.task-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+}
+
+/* El label es el “cajón” que se ve y recibe el clic */
+.task-checkbox label {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+  width: 100%;
+  height: 100%;
+  color: #dee2e6; /* color inicial del ícono */
+  transition: all 0.2s ease-in-out;
+}
+
+/* Suave feedback cuando paso el mouse por encima */
+.task-checkbox label:hover {
+  color: #adb5bd;
+}
+
+/* Cuando el input está marcado, pinto el contenedor en verde */
+.task-checkbox input[type="checkbox"]:checked + label {
+  color: #51cf66;
+}
+
+/* SVG del cuadrado del checkbox (ocupa todo el contenedor) */
+.task-checkbox .checkbox-box {
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* que no bloquee el clic */
+}
+
+/* SVG del “check” centrado dentro del cuadrado */
+.task-checkbox .check-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  color: white;
+  pointer-events: none;
+}
+
+/* Accesibilidad: foco visible cuando navego con teclado */
+.task-checkbox input[type="checkbox"]:focus + label {
+  outline: 2px solid #86b7fe;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ================= DARK - TASK CHECKBOX ================= */
+/* Ajusto colores del checkbox en modo oscuro */
+.dark .task-checkbox label {
+  color: #666;
+}
+
+/* Hover un poco más claro en oscuro */
+.dark .task-checkbox label:hover {
+  color: #888;
+}
+
+/* Checked sigue siendo verde para dar buen contraste */
+.dark .task-checkbox input[type="checkbox"]:checked + label {
+  color: #51cf66;
+}
+
+/* Foco en oscuro con tono azul más intenso */
+.dark .task-checkbox input[type="checkbox"]:focus + label {
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
+}
+
+/* El cuadrado se ve un poco más oscuro en dark */
+.dark .task-checkbox .checkbox-box {
+  filter: brightness(0.8);
+}
+
+/* Si está marcado, vuelvo a brillo normal */
+.dark .task-checkbox input[type="checkbox"]:checked + label .checkbox-box {
+  filter: brightness(1);
+}
+
+/* ================= ANIMACIONES ================= */
+/* Efecto de “click” solo si el usuario no prefiere menos animaciones */
+@media (prefers-reduced-motion: no-preference) {
+  .task-checkbox label {
+    transition: transform 0.2s ease-in-out;
+  }
+
+  /* Pequeña reducción al presionar, para feedback táctil */
+  .task-checkbox label:active {
+    transform: scale(0.95);
+  }
+}

@@ -1,157 +1,30 @@
-import express from "express";
+// ===============================
+// Importo las dependencias
+// ===============================
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+import app from "./app.js";
+import { PORT, DOMAIN } from "./config.js";
 
-// Hash y JWT
-import bcrypt from "bcrypt"; // es para hacer hash de nuestro passwords
-import jwt from "jsonwebtoken"; // crear y leer tokens JWT
+// ===============================
+// Configuración de variables de entorno
+// ===============================
+// Cargo las variables desde el archivo .env
+dotenv.config();
 
-// middlewares
-import cors from "cors";
+// ===============================
+// Conexión a la base de datos MongoDB
+// ===============================
+// Uso la URL guardada en la variable DB_MOBILE del .env
+mongoose
+  .connect(process.env.DB_MOBILE)
+  .then(() => console.log("✅ Conectado a MongoDB - Database: to-do-list"))
+  .catch((err) => console.error("❌ No se pudo conectar a MongoDB:", err));
 
-// configuraciones
-import { PORT, DOMAIN, JWT_SECRET, __dirname } from "./config.js";
-
-// elementos de Auth
-import { authenticateToken } from './middlewares/auth.js';
-
-// Utilities
-const app = express();
-
-// Middlewares
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Simulando la Base de datos
-const users = [];
-
-const MockUsers = {
-  name: "Aidin",
-  username: "aidin@mail.com",
-  password: "Hola1234!",
-  // ⬇️ ADDED: imagen estable usando seed (no cambia al recargar)
-  image: `https://picsum.photos/seed/${encodeURIComponent("aidin@mail.com")}/200`,
-};
-
-// usuario de prueba al iniciar 
-(async () => {
-  try {
-    const exists = users.find(u => u.username === MockUsers.username);
-    if (!exists) {
-      const hashed = await bcrypt.hash(MockUsers.password, 10);
-      const seededUser = {
-        id: 1,
-        name: MockUsers.name,
-        username: MockUsers.username,
-        password: hashed, // hash de "Hola1234!"
-        // ⬇️ ADDED: asegurar la misma lógica estable también aquí
-        image: `https://picsum.photos/seed/${encodeURIComponent(MockUsers.username)}/200`,
-      };
-      users.push(seededUser);
-      console.log("     username:", MockUsers.username);
-      console.log("     password:", MockUsers.password);
-    }
-  } catch (e) {
-    console.error(" Error en el usuario de prueba:", e);
-  }
-})();
-
-// endpoint simple para verificar que el backend está vivo
-app.get("/api/v1/health", (req, res) => {
-  res.status(200).json({ ok: true, users: users.length });
-});
-
-// Rutas
-
-// USUARIOS
-
-app.get("/api/v1/users", async (req, res, next) => {
-  res.status(200).json({ data: users, message: "Aquí estan tus usuarios" });
-});
-
-//POST Login de Usuarios
-
-app.post("/api/v1/login", async (req, res, next) => {
-  try {
-    const { username, password } = req.body;
-
-    // obtener el usuario recién creado
-    const user = users.find((u) => u.username === username);
-
-    if (!user) {
-      return res.status(400).json({ message: "usuario no existente" });
-    }
-
-    // comprar la contraseña de la base de datos, con la contraseña del login
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (!isMatch) {
-      return res.status(400).json({ message: "Clave incorrecta" });
-    }
-
-    console.log("User encontrado: ", user);
-
-    // Crear JWT Token y devuelvo el usuario
-
-    // Create and Sign a New Token
-    const token = jwt.sign({ username: username }, JWT_SECRET, {
-      expiresIn: "1h",
-    });
-
-    console.log("haciendo login");
-    res.status(200).json({ data: user, message: "Login exitoso", token});
-  } catch (e) {
-    res.status(500).json({ error: "Error en el servidor" });
-  }
-});
-
-//POST Registro de Usuarios
-
-app.post("/api/v1/register", async (req, res, next) => {
-  const {
-    name,
-    username,
-    password,
-  } = req.body;
-
-  // ⬇️ ADDED: Imagen única por usuario (basada en username) — estable
-  const image = `https://picsum.photos/seed/${encodeURIComponent(username)}/200`;
-
-  // Hash de contraseña con Bcrypt
-  const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-  // Guardar esto en la DB
-  const id = Math.floor(Math.random() * 10000) + 1;
-  const newUser = { id, username, password: hashedPassword, name, image };
-  users.push(newUser);
-
-  // obtener el usuario recién creado
-  const user = users.find((u) => u.username === username);
-
-    // Crear JWT Token y devuelvo el usuario (sin clave)
-
-    // Create and Sign JWT
-    const token = jwt.sign({ username: username }, JWT_SECRET, {
-      expiresIn: "1h",
-    });
-
-
-  try {
-    console.log("haciendo register");
-    res.status(200).json({ data: user, message: "Usuario registrado con éxito", token });
-  } catch (e) {
-    res.status(500).json({ error: "Error en el servidor" });
-  }
-});
-
-
-// HOME PRIVADO
-
-//app.get('/api/v1/home', authenticateToken, async (req, res, next) => {
-//  console.log("ver contenido de la página");
-//  res.status(200).json({ message: "Aquí estan tu contenido del home" })
-//});
-
+// ===============================
+// Inicio del servidor
+// ===============================
+// Levanto el servidor y muestro el dominio y puerto en consola
 app.listen(PORT, () => {
-  console.log(`Server esta corriendo en ${DOMAIN}:${PORT}`);
+  console.log(`✅ Servidor corriendo en ${DOMAIN}:${PORT}`);
 });

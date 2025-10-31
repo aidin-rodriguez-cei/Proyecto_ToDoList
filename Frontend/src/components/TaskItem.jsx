@@ -2,32 +2,29 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrashCan,
-  faCheckDouble,
-  faSquare,
   faPen,
   faHome,
   faBriefcase,
   faCoffee,
   faMusic,
-  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
+import TaskCheckbox from "./TaskCheckbox";
 
-const TaskItem = ({ task, index, onToggle, onDelete, onEdit }) => {
+// Componente que muestra una tarea individual con su info y acciones
+const TaskItem = ({ task, onToggle, onDelete, onEdit }) => {
   const { titulo, descripcion, categoria } = task;
 
-  // ✅ Compatibilidad: soporta 'completed' y 'completada'
+  // Maneja compatibilidad entre los nombres "completed" y "completada"
   const done =
-    typeof task.completed === "boolean"
-      ? task.completed
-      : !!task.completada;
+    typeof task.completed === "boolean" ? task.completed : !!task.completada;
 
-  // ✅ Asegurar que prioridad sea un índice válido (0..3)
+  // Asegura que la prioridad esté dentro del rango permitido (0 a 3)
   const prioridad = Number.isFinite(task.prioridad) ? task.prioridad : 0;
   const prioClass = ["", "low-priority", "medium-priority", "high-priority"][
     Math.max(0, Math.min(3, prioridad))
   ];
 
-  // Función para obtener el icono basado en la categoría de la tarea
+  // Muestra un icono distinto según la categoría de la tarea
   const getCategoryIcon = (category) => {
     switch (category) {
       case "personal":
@@ -43,45 +40,40 @@ const TaskItem = ({ task, index, onToggle, onDelete, onEdit }) => {
     }
   };
 
-  const checkboxId = `checkbox-${index}`;
+  // Se obtiene el id de la tarea (según venga del backend)
+  const taskId = task._id || task.id;
+  const checkboxId = `checkbox-${taskId}`;
 
   return (
+    // Contenedor principal de la tarea
     <div
       className={`task-item ${prioClass} ${done ? "completed" : ""} task-dark`}
     >
-      {/* Icono de categoría de tarea */}
+      {/* Icono de la categoría */}
       {getCategoryIcon(categoria)}
 
-      {/* Información de la tarea */}
+      {/* Título y descripción de la tarea */}
       <label className="task-dark" htmlFor={checkboxId}>
         <h3>{titulo}</h3>
         <small>{descripcion}</small>
       </label>
 
-      {/* Checkbox para marcar la tarea como completada */}
+      {/* Checkbox para marcar como completada */}
       <div className="borrar task-dark">
-        <input
-          type="checkbox"
+        <TaskCheckbox
+          id={taskId}
           checked={done}
-          onChange={onToggle}
-          id={checkboxId}
-          aria-label={done ? "Marcar como pendiente" : "Marcar como completada"}
+          onChange={() => onToggle(taskId)} // Llama a la función para alternar el estado
         />
-        <label htmlFor={checkboxId}>
-          {done ? (
-            <FontAwesomeIcon icon={faCheck} /> // icono de check
-          ) : (
-            <FontAwesomeIcon icon={faSquare} /> // icono de caja vacía
-          )}
-        </label>
       </div>
 
-      {/* Iconos de eliminación */}
-      <div className="borrar task-dark" onClick={() => onDelete(index)}>
+      {/* Botón de eliminar */}
+      <div className="borrar task-dark" onClick={() => onDelete(taskId)}>
         <FontAwesomeIcon icon={faTrashCan} title="Eliminar" />
       </div>
-      {/* Iconos de edición */}
-      <div className="borrar task-dark" onClick={() => onEdit(task, index)}>
+
+      {/* Botón de editar */}
+      <div className="borrar task-dark" onClick={() => onEdit(task)}>
         <FontAwesomeIcon icon={faPen} title="Editar" />
       </div>
     </div>

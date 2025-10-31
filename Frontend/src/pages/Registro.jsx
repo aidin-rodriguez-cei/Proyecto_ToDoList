@@ -1,46 +1,66 @@
+// ============================================================
+// Descripción: Formulario para crear una cuenta nueva.
+// ============================================================
+
 import React, { useState, useContext } from "react";
-import { useUser } from '@/hooks/useUser';
+import { useUser } from "@/hooks/useUser";
 import { ModoOscuroContext } from "@/context/ModoOscuroContext";
-import { useNavigate, Link } from 'react-router-dom'; // 👈 agregado Link
+import { useNavigate, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import "@/css/style.css";
 
 const Registro = () => {
+  // Estado global de tema (claro/oscuro)
   const { tema, toggleTema } = useContext(ModoOscuroContext);
-  
+
+  // ------------------------------------------------------------
+  // Estado local del formulario (inputs controlados)
+  // ------------------------------------------------------------
   const [formData, setFormData] = useState({
     name: "",
     username: "",
     password: "",
     tyc: false,
-    image: "https://picsum.photos/200"
+    image: "https://picsum.photos/200",
   });
 
-  const { register } = useUser(); 
+  // Función register del contexto de usuario
+  const { register } = useUser();
+  // Navegación para redirigir tras registrarse
   const navigate = useNavigate();
 
+  // ------------------------------------------------------------
+  // Manejador de cambios en inputs (incluye checkbox)
+  // ------------------------------------------------------------
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prevData) => ({
-      ...prevData, 
-      [name]: type === 'checkbox' ? checked : value,
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
-// ...
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const err = await register(formData);  // 👈 esperar a que termine
-  if (err) {
-    // mostrar error si quieres
-    return;
-  }
-  window.dispatchEvent(new Event("auth-changed")); // 👈 notifica
-  navigate("/");
-};
+  // ------------------------------------------------------------
+  // Envío del formulario (registro)
+  // ------------------------------------------------------------
+  // ...
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const err = await register(formData);
+    if (err) {
+      // Si la API devuelve un error, aquí simplemente salgo 
+      return;
+    }
+    // Aviso global de que cambió el estado de auth
+    window.dispatchEvent(new Event("auth-changed"));
+    // Redirijo a la página de inicio
+    navigate("/");
+  };
 
-
+  // ------------------------------------------------------------
+  // Render de la página de registro
+  // ------------------------------------------------------------
   return (
     <div className={`page-container ${tema}`}>
       <Header />
@@ -51,6 +71,8 @@ const handleSubmit = async (e) => {
         </div>
         <div className="form-box">
           <h2>Regístrate</h2>
+
+          {/* Formulario con campos controlados */}
           <form onSubmit={handleSubmit}>
             <label htmlFor="name">Nombre:</label>
             <input
@@ -60,9 +82,11 @@ const handleSubmit = async (e) => {
               value={formData.name}
               placeholder="Ingresa tu nombre"
               onChange={handleChange}
+              autoComplete="name"
               required
             />
-            <label htmlFor="email">Usuario:</label>
+
+            <label htmlFor="username">Usuario:</label>
             <input
               type="email"
               id="username"
@@ -70,8 +94,10 @@ const handleSubmit = async (e) => {
               value={formData.username}
               placeholder="Ingresa tu email"
               onChange={handleChange}
+              autoComplete="email"
               required
             />
+
             <label htmlFor="password">Contraseña:</label>
             <input
               type="password"
@@ -80,8 +106,11 @@ const handleSubmit = async (e) => {
               value={formData.password}
               placeholder="Ingresa tu contraseña"
               onChange={handleChange}
+              autoComplete="new-password"
               required
             />
+
+            {/* Aceptación de Términos y Condiciones */}
             <label className="tyc">
               <input
                 onChange={handleChange}
@@ -93,10 +122,11 @@ const handleSubmit = async (e) => {
               Acepto los Términos y Condiciones
             </label>
 
+            {/* Botón de enviar */}
             <button type="submit">Registrarme</button>
           </form>
 
-          {/* 🔗 Enlace centrado para iniciar sesión */}
+          {/* Enlace para ir a login si ya tiene cuenta */}
           <p className="form-link">
             ¿Ya tienes una cuenta?{" "}
             <Link to="/login" className="text-link">

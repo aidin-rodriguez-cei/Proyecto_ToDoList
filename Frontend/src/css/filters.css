@@ -1,0 +1,207 @@
+/* ================= FILTROS (BARRA PRINCIPAL) ================= */
+/* Estilos generales del contenedor de filtros */
+.filters {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: #f8f9fa;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  gap: 1rem 1.25rem;
+}
+
+/* Grupo individual dentro de la barra de filtros */
+.filter-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+/* Estilo del texto del label de cada filtro */
+.filter-group label {
+  font-weight: 500;
+  color: #495057;
+  font-size: 0.875rem;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* El select ocupa todo el espacio disponible */
+.filter-group > div {
+  flex: 1 1 200px;
+  min-width: 180px;
+  width: auto;
+}
+
+/* ================= SELECTS ================= */
+/* Estilo de los desplegables */
+.filters select {
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  border-radius: 0.375rem;
+  border: 1px solid #dee2e6;
+  background-color: white;
+  cursor: pointer;
+  min-width: 180px;
+  max-width: 100%;
+  font-size: 0.875rem;
+  color: #495057;
+
+  /* Quita los estilos nativos del sistema */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* Flechita del select (hecha con SVG) */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+}
+
+/* Hover sobre los selects */
+.filters select:hover {
+  border-color: #adb5bd;
+}
+
+/* Cuando el select tiene foco (clic o tab) */
+.filters select:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  outline: none;
+}
+
+/* ================= COLORES DE PRIORIDAD ================= */
+.priority-select option {
+  padding: 8px;
+  font-weight: 500;
+}
+
+/* Colores diferentes para cada tipo de prioridad */
+.priority-select option[value=""] {
+  color: #495057;
+}
+.priority-select option[value="0"] {
+  color: #adb5bd;
+}
+.priority-select option[value="1"] {
+  color: #69db7c;
+}
+.priority-select option[value="2"] {
+  color: #ffd43b;
+}
+.priority-select option[value="3"] {
+  color: #ff8787;
+}
+
+/* ================= MODO OSCURO ================= */
+.dark .filters {
+  background-color: #2a2a2a !important;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+.dark .filters > div {
+  background-color: #2a2a2a !important;
+}
+
+.dark .filters div[style*="background"] {
+  background-color: #2a2a2a !important;
+}
+
+/* Ajustes para grupos y etiquetas */
+.dark .filter-group,
+.dark .filter-group[style],
+body.dark .filter-group,
+#dark-body .filter-group {
+  background-color: transparent !important;
+}
+
+.dark .filter-group label,
+body.dark .filter-group label,
+#dark-body .filter-group label,
+.dark .filter-group label[style] {
+  color: #e0e0e0 !important;
+  background-color: transparent !important;
+}
+
+/* Selects en modo oscuro */
+.dark .filters select {
+  background-color: #3a3a3a !important;
+  color: #e0e0e0 !important;
+  border: 1px solid #555 !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23e0e0e0' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+.dark .filters select:hover {
+  border-color: #777 !important;
+  background-color: #454545 !important;
+}
+
+.dark .filters select:focus {
+  border-color: #86b7fe !important;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.35) !important;
+}
+
+/* Opciones del select en modo oscuro */
+.dark .priority-select option,
+.dark .filters select option {
+  background-color: #3a3a3a !important;
+  color: #e0e0e0 !important;
+}
+
+.dark .priority-select option[value=""] {
+  color: #aaa !important;
+}
+.dark .priority-select option[value="0"] {
+  color: #999 !important;
+}
+.dark .priority-select option[value="1"] {
+  color: #69db7c !important;
+}
+.dark .priority-select option[value="2"] {
+  color: #ffd43b !important;
+}
+.dark .priority-select option[value="3"] {
+  color: #ff8787 !important;
+}
+
+/* ================= RESPONSIVE - MÓVIL ================= */
+@media (max-width: 768px) {
+  /* Pasa los filtros a formato grid en móviles */
+  .filters {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 0.5rem;
+    column-gap: 0;
+    padding: 0.75rem 0.5rem;
+  }
+
+  /* Cada filtro ocupa una fila */
+  .filter-group {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    align-items: center;
+    column-gap: 0.5rem;
+    row-gap: 0;
+    width: 100%;
+    margin: 0;
+    min-width: 0 !important;
+  }
+
+  /* Ajusta selects al ancho total */
+  .filter-group > div,
+  .filter-group select {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .filter-group:last-child {
+    margin-bottom: 0;
+  }
+}

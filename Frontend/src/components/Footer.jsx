@@ -1,14 +1,16 @@
 import React from "react";
 import "@/css/style.css";
-import { useUser } from "@/hooks/useUser"; // 👈 agregado para saber si hay usuario
+import { useUser } from "@/hooks/useUser";
 
+// Componente Footer: muestra el pie de página y el botón para crear nuevas tareas
 const Footer = ({ onAddTask }) => {
-  const { user } = useUser(); // 👈 obtenemos el usuario actual
+  // Hook personalizado que obtiene los datos del usuario actual
+  const { user } = useUser();
 
   return (
     <footer className="footer">
-      {/* Botón para agregar una nueva tarea */}
-      {user && ( // 👈 mostramos solo si hay sesión
+      {/* Si hay un usuario logueado, se muestra el botón para añadir tareas */}
+      {user && (
         <button
           id="add"
           title="Nueva Tarea"
@@ -19,7 +21,7 @@ const Footer = ({ onAddTask }) => {
         </button>
       )}
 
-      {/* Info */}
+      {/* Texto con la información del pie de página */}
       <p className="footer-text">© 2025 To do List - Aidin Rodriguez</p>
     </footer>
   );

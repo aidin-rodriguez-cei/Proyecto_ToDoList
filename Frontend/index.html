@@ -1,16 +1,45 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image" href="/icons/yoga.png" />
+
+    <!-- Ícono de la aplicación -->
+    <link rel="icon" type="image/png" href="/icons/yoga.png" />
+
+    <!-- Ajuste para que sea responsive en móviles -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Descripción para buscadores (SEO) -->
+    <meta
+      name="description"
+      content="Organiza tus tareas, define prioridades y cumple tus metas con esta To-Do List."
+    />
+
+    <!-- Título de la pestaña -->
     <title>To Do List</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://kit.fontawesome.com/181a2bd762.js" crossorigin="anonymous"></script>
+
+    <!-- Preconexión a Google Fonts (mejora el rendimiento) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Fuente principal del sitio -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Carga de íconos desde Font Awesome -->
+    <script
+      src="https://kit.fontawesome.com/181a2bd762.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
+
   <body>
+    <!-- Punto de montaje de la app React -->
     <div id="root"></div>
+
+    <!-- Archivo principal de React (entrada Vite) -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

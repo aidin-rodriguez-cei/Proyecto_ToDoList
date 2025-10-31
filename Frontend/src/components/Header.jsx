@@ -6,33 +6,39 @@ import "@/css/style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
+// Componente principal del encabezado de la aplicación
 export const Header = () => {
+  // Contexto del modo oscuro
   const { tema, toggleTema } = useContext(ModoOscuroContext);
+
+  // Estado para manejar el menú desplegable
   const [menuOpen, setMenuOpen] = useState(false);
-  const { user, logout, login, register } = useUser();
+
+  // Info del usuario y la función logout desde el hook
+  const { user, logout } = useUser();
+
+  // Para redireccionar al cerrar sesión
   const navigate = useNavigate();
 
+  // Cambia el fondo del body según el tema seleccionado
   useEffect(() => {
-    // Cambia el ID del body dependiendo del tema
     const body = document.body;
     body.id = tema === "dark" ? "dark-body" : "light-body";
   }, [tema]);
 
-  // ✅ Fallback estable para el avatar si no existe user.image
+  // Imagen del usuario o un avatar genérico si no tiene
   const imageSrc =
     user?.image ||
     (user?.username
       ? `https://picsum.photos/seed/${encodeURIComponent(user.username)}/200`
       : "/icons/user.png");
 
-  // ✅ Logout: limpia sesión, notifica y redirige a /login
+  // Cierra sesión y redirige al login
   const handleLogout = () => {
     try {
-      logout?.(); // tu hook limpia localStorage
+      logout?.();
     } finally {
-      // notificamos a la app por si algún componente escucha cambios de auth
       window.dispatchEvent(new Event("auth-changed"));
-      // cerramos el menú y redirigimos a /login
       setMenuOpen(false);
       navigate("/login", { replace: true });
     }
@@ -46,16 +52,14 @@ export const Header = () => {
           {tema === "dark" ? "🌙" : "☀️"}
         </button>
 
-        {/* Título */}
+        {/* Título principal con link al inicio */}
         <h1 className="header-name">
           <Link
-            to={user ? "/" : "/"}
+            to="/"
             onClick={() => {
               if (!user) {
-                // Si no hay sesión, limpia cache vieja por seguridad
                 localStorage.removeItem("user");
                 localStorage.removeItem("token");
-                // fuerza actualización del estado global (evento)
                 window.dispatchEvent(new Event("auth-changed"));
               }
             }}
@@ -64,8 +68,9 @@ export const Header = () => {
           </Link>
         </h1>
 
-        {/* Menú con desplegable */}
+        {/* Menú principal */}
         <div className="menu-container">
+          {/* Botón que abre o cierra el menú */}
           <button
             className="menu-button"
             onClick={() => setMenuOpen((prev) => !prev)}
@@ -75,8 +80,10 @@ export const Header = () => {
             <img src="/icons/menu.png" alt="Menú" />
           </button>
 
+          {/* Menú desplegable */}
           {menuOpen && (
             <div className="menu-dropdown" role="menu">
+              {/* Botón para cerrar el menú */}
               <button
                 className="close-menu"
                 onClick={() => setMenuOpen(false)}
@@ -85,24 +92,29 @@ export const Header = () => {
                 <FontAwesomeIcon icon={faTimes} className="close-menu-icon" />
               </button>
 
+              {/* Enlace al inicio, siempre visible */}
               <NavLink to="/" onClick={() => setMenuOpen(false)}>
                 Inicio
               </NavLink>
 
+              {/* Si hay usuario, se muestran opciones de cuenta */}
               {user ? (
                 <>
-                  {/* handleLogout para redirigir a /login */}
+                  <NavLink to="/cuenta" onClick={() => setMenuOpen(false)}>
+                    Mi cuenta
+                  </NavLink>
+
                   <NavLink
                     to="/login"
                     onClick={(e) => {
                       e.preventDefault();
                       handleLogout();
-                      setMenuOpen(false);
                     }}
                   >
                     Salir
                   </NavLink>
 
+                  {/* Muestra el avatar y el nombre del usuario */}
                   <div className="user-info">
                     <img
                       src={imageSrc}
@@ -113,6 +125,7 @@ export const Header = () => {
                   </div>
                 </>
               ) : (
+                // Si no hay sesión, se muestran las opciones de login y registro
                 <>
                   <NavLink to="/registro" onClick={() => setMenuOpen(false)}>
                     Registro
