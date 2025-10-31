@@ -5,10 +5,17 @@
 @tailwind utilities;
 
 /* ================= CONFIGURACIÓN GLOBAL ================= */
-/* Modo de color del sistema (permite light/dark automáticamente) */
+
+/* Tema claro por defecto */
 :root {
-  color-scheme: light dark;
+  color-scheme: light; /* evita que Safari ponga inputs oscuros */
 }
+
+/* Cuando tu app activa el modo oscuro (tu clase .dark) */
+.dark {
+  color-scheme: dark;
+}
+
 
 /* Aplicamos box-sizing para que el padding no afecte el ancho total */
 *,

@@ -1,5 +1,5 @@
 /* ================= IMPORTS ================= */
-/*  Estilos separados para mantener el CSS ordenado */
+/* Estilos separados para mantener el CSS ordenado */
 @import "./filters.css";
 @import "./priority-radios.css";
 @import "./TaskCheckbox.css";
@@ -282,7 +282,7 @@ header img {
 /* ================= TASK LIST ================= */
 /* Tarjeta contenedora de la lista de tareas */
 .tasks {
-  width: 80%;
+  width: auto;
   min-height: 100px;
   margin: 10px auto;
   background-color: #fff;
@@ -333,6 +333,15 @@ header img {
   color: #6c757d;
 }
 
+/* Centrado vertical del checkbox dentro de la tarea */
+.task-item .task-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
 /* Estilo cuando la tarea está completada */
 .completed {
   text-decoration: line-through;
@@ -355,8 +364,8 @@ header img {
 
 /* Bloques clickeables para acciones */
 .borrar {
-  margin-left: 15px;
-  padding: 8px;
+  margin-left: 6px;
+  padding: 4px;
   border-radius: 0.25rem;
   transition: all 0.15s ease-in-out;
 }
@@ -476,6 +485,7 @@ header img {
   display: inline-flex;
   align-items: center;
   margin-bottom: 20px;
+  font-size: 0.9rem;
 }
 
 /* Checkbox visible dentro de “tyc” (este sí se muestra) */
@@ -497,7 +507,7 @@ header img {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 2rem 1rem;
+  padding: 1rem 2rem;
 }
 
 /* Tarjeta del formulario de login/registro */
@@ -803,6 +813,14 @@ footer button {
   background-color: #b7d9db;
   color: #333;
   border-color: #b7d9db;
+}
+
+/* En la tarjeta, fuerza un contenedor de acciones flexible */
+.home-public-main section .flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
 }
 
 /* ================= ERROR PAGE ================= */
@@ -1243,3 +1261,4 @@ footer button {
     height: 26px;
   }
 }
+
