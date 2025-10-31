@@ -48,10 +48,29 @@ app.use(express.urlencoded({ extended: true }));
 app.use(compression());
 
 // ===============================
+// Ruta raíz - Bienvenida a la API
+// ===============================
+app.get("/", (_req, res) => {
+  res.json({
+    message: "🚀 API To-Do List",
+    version: "1.0.0",
+    status: "running",
+    endpoints: {
+      health: "/api/v1/health",
+      api: "/api/v1"
+    }
+  });
+});
+
+// ===============================
 // Endpoint de salud (para probar el deploy)
 // ===============================
 app.get("/api/v1/health", (_req, res) => {
-  res.json({ ok: true });
+  res.json({ 
+    ok: true,
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || "development"
+  });
 });
 
 // ===============================
@@ -74,4 +93,3 @@ app.use((req, _res, next) => {
 app.use(errorHandler);
 
 export default app;
-
