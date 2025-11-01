@@ -29,8 +29,8 @@ export const errorHandler = (err, req, res, _next) => {
     ok: false,
     status,
     message,
-    method: req.method, // método HTTP que causó el error
-    path: req.originalUrl, // ruta donde ocurrió el error
+    method: req.method, 
+    path: req.originalUrl, 
     stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
   });
 };

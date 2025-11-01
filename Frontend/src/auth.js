@@ -1,11 +1,11 @@
 // ========================= AUTH HELPERS ========================= //
-// Módulo para gestionar usuario autenticado y token en localStorage.
+// Módulo para gestionar usuario autenticado y token en localStorage
 
 const STORAGE_USER = "user";
 const STORAGE_TOKEN = "token";
 const STORAGE_TASKS_PREFIX = "TASKS_";
 
-// --- Utilidad: base de API normalizada (siempre sin barra final)
+// --- Base de API normalizada (siempre sin barra final)
 function getApiBase() {
   // Incluir /api/v1 en la variable de entorno
   const envUrl = import.meta.env.VITE_API_URL; 
@@ -15,7 +15,7 @@ function getApiBase() {
   return base.replace(/\/+$/, "");
 }
 
-/** Obtiene el usuario actual con su token. */
+/** Obtiene el usuario actual con su token */
 export function getCurrentUser() {
   try {
     const userStr = localStorage.getItem(STORAGE_USER);
@@ -44,7 +44,7 @@ export function isAuthenticated() {
   }
 }
 
-/** Guarda datos del usuario y token. */
+/** Guarda datos del usuario y token */
 export function setUserData(userData, token) {
   if (!userData || !token) {
     console.error("Datos de usuario o token inválidos");
@@ -61,7 +61,7 @@ export function setUserData(userData, token) {
   }
 }
 
-/** Cierra sesión y limpia datos locales. */
+/** Cierra sesión y limpia datos locales */
 export function logout() {
   try {
     const user = getCurrentUser();
@@ -76,7 +76,7 @@ export function logout() {
   }
 }
 
-/** Valida el token contra el backend. */
+/** Valida el token contra el backend */
 export async function validateToken() {
   try {
     const token = localStorage.getItem(STORAGE_TOKEN);

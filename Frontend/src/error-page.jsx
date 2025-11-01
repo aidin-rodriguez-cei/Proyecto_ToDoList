@@ -7,12 +7,12 @@ import "@/css/style.css";
 
 /**
  * ====================== ERROR PAGE ======================
- * Esta página se muestra cuando ocurre un error de enrutamiento
- * o el usuario intenta acceder a una ruta inexistente.
+ * Esta página muestra cuando ocurre un error de enrutamiento
+ * o el usuario intenta acceder a una ruta inexistente
  *
- * - Muestra un mensaje genérico con el error capturado por React Router.
- * - Incluye el <Header /> y <Footer /> para mantener la coherencia visual.
- * - Adapta los estilos al tema actual (claro / oscuro).
+ * - Muestra un mensaje genérico con el error capturado por React Router
+ * - Incluye el <Header /> y <Footer /> para mantener la coherencia visual
+ * - Adapta los estilos al tema actual (claro / oscuro)
  */
 
 const ErrorPage = () => {

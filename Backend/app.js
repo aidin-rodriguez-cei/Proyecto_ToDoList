@@ -32,7 +32,7 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Permite peticiones sin origin (como Postman, curl, etc)
+      // Permite peticiones sin origin 
       if (!origin) return callback(null, true);
       
       if (allowedOrigins.indexOf(origin) === -1) {

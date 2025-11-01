@@ -1,11 +1,11 @@
 import { createContext, useState, useEffect } from "react";
 
-// Creamos el contexto que manejará el modo oscuro o claro
+// Contexto que manejará el modo oscuro o claro
 export const ModoOscuroContext = createContext();
 
 // Proveedor del contexto (envuelve a toda la app)
 export const ModoOscuroProvider = ({ children }) => {
-  // Guardamos el tema actual, tomando el valor de localStorage
+  // Guarda el tema actual, tomando el valor de localStorage
   const temaGuardado = localStorage.getItem("modoOscuro") || "light";
   const [tema, setTema] = useState(temaGuardado);
 

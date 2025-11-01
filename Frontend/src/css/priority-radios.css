@@ -1,5 +1,5 @@
 /* ================= GRUPO DE PRIORIDADES ================= */
-/* Contenedor que organiza los botones de prioridad (radio) */
+/* Organiza los botones de prioridad (radio) */
 .priority-radios {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -13,7 +13,7 @@
   position: relative;
 }
 
-/* Ocultamos el input real para diseñar el label a gusto */
+/* Para ocultar el input real y diseñar el label */
 .priority-radio input[type="radio"] {
   position: absolute;
   inset: 0;

@@ -13,7 +13,6 @@ const router = Router();
 
 // ==========================
 // Uso de los diferentes módulos de rutas
-// (Así mantengo el código ordenado y modular)
 // ==========================
 router.use(usersRoutes);
 router.use(tasksRoutes);

@@ -1,5 +1,5 @@
 /* ================= TASK CHECKBOX  ================= */
-/* Componente visual del checkbox de cada tarea (tamaño e interacción) */
+/* Checkbox de cada tarea (tamaño e interacción) */
 .task-checkbox {
   display: inline-block;
   position: relative;
@@ -21,7 +21,7 @@
   padding: 0;
 }
 
-/* El label es el “cajón” que se ve y recibe el clic */
+/* El label es el cajón que se ve y recibe el clic */
 .task-checkbox label {
   display: inline-block;
   position: relative;
@@ -30,7 +30,7 @@
   line-height: 1;
   width: 100%;
   height: 100%;
-  color: #dee2e6; /* color inicial del ícono */
+  color: #dee2e6; 
   transition: all 0.2s ease-in-out;
 }
 
@@ -48,7 +48,7 @@
 .task-checkbox .checkbox-box {
   width: 100%;
   height: 100%;
-  pointer-events: none; /* que no bloquee el clic */
+  pointer-events: none; 
 }
 
 /* SVG del “check” centrado dentro del cuadrado */
@@ -63,7 +63,7 @@
   pointer-events: none;
 }
 
-/* Accesibilidad: foco visible cuando navego con teclado */
+/* Foco visible cuando navego con teclado */
 .task-checkbox input[type="checkbox"]:focus + label {
   outline: 2px solid #86b7fe;
   outline-offset: 2px;
@@ -76,7 +76,7 @@
   color: #666;
 }
 
-/* Hover un poco más claro en oscuro */
+/* Hover más claro en oscuro */
 .dark .task-checkbox label:hover {
   color: #888;
 }
@@ -86,7 +86,7 @@
   color: #51cf66;
 }
 
-/* Foco en oscuro con tono azul más intenso */
+/* Foco en oscuro con tono azul intenso */
 .dark .task-checkbox input[type="checkbox"]:focus + label {
   outline: 2px solid #4a90e2;
   outline-offset: 2px;
@@ -103,13 +103,13 @@
 }
 
 /* ================= ANIMACIONES ================= */
-/* Efecto de “click” solo si el usuario no prefiere menos animaciones */
+/* Efecto de click  */
 @media (prefers-reduced-motion: no-preference) {
   .task-checkbox label {
     transition: transform 0.2s ease-in-out;
   }
 
-  /* Pequeña reducción al presionar, para feedback táctil */
+  /* Pequeña reducción al presionar  */
   .task-checkbox label:active {
     transform: scale(0.95);
   }

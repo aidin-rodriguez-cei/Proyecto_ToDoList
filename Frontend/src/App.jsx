@@ -1,7 +1,7 @@
 /**
  * ============================================================
- * Punto de entrada principal de la aplicación React.
- * Encapsula la gestión de rutas dentro de <AppRoutes />.
+ * Punto de entrada principal a React
+ * Encapsula la gestión de rutas dentro de <AppRoutes />
  * ============================================================
  */
 

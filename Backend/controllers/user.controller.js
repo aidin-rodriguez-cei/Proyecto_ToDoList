@@ -10,7 +10,7 @@ import User from "../models/User.js";
 import Task from "../models/Task.js";
 
 // ==========================
-// GET /users - Traer todos los usuarios (sin contraseñas)
+// GET /users - Trae todos los usuarios (sin contraseñas)
 // (Solo devuelvo info pública, oculto el campo password)
 // ==========================
 export const getAllUsers = async (_req, res) => {

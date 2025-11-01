@@ -1,6 +1,6 @@
 // ============================================================
-// Descripción: Pantalla de "Mi cuenta" para editar perfil,
-// cambiar contraseña y eliminar la cuenta.
+// Pantalla de "Mi cuenta" para editar perfil,
+// cambiar contraseña y eliminar la cuenta
 // ============================================================
 
 import React, { useContext, useState } from "react";
@@ -42,7 +42,7 @@ const Cuenta = () => {
   });
 
   // ------------------------------------------------------------
-  // Guardar cambios de perfil
+  // Guarda cambios de perfil
   // Llama a updateProfile del contexto y muestra un toast
   // ------------------------------------------------------------
   const onSaveProfile = async (e) => {
@@ -53,7 +53,7 @@ const Cuenta = () => {
   };
 
   // ------------------------------------------------------------
-  // Cambiar contraseña
+  // Cambia contraseña
   // Verifico que la confirmación coincida antes de enviar
   // ------------------------------------------------------------
   const onChangePwd = async (e) => {
@@ -70,7 +70,7 @@ const Cuenta = () => {
   };
 
   // ------------------------------------------------------------
-  // Eliminar cuenta
+  // Elimina cuenta
   // Pido confirmación porque es una acción irreversible
   // ------------------------------------------------------------
   const onDelete = async () => {
@@ -87,7 +87,7 @@ const Cuenta = () => {
 
   // ------------------------------------------------------------
   // Render principal
-  // Estructura: Header, contenido central y Footer
+  // Estructura: Header, contenido central y footer
   // ------------------------------------------------------------
   return (
     <div className={`page-container ${tema}`}>

@@ -1,5 +1,5 @@
 // ============================================================
-// Descripción: Formulario para crear una cuenta nueva.
+// Formulario para crear una cuenta nueva
 // ============================================================
 
 import React, { useState, useContext } from "react";

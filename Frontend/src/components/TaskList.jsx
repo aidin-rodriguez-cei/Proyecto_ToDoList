@@ -12,7 +12,7 @@ const TaskList = () => {
     useContext(TasksContext);
   const toast = useToast(); // Muestra mensajes tipo "toast"
 
-  // Guarda la tarea que se está editando (si hay una)
+  // Guarda la tarea que se está editando 
   const [taskToEdit, setTaskToEdit] = useState(null);
 
   // Filtros de prioridad, categoría y estado
@@ -20,7 +20,7 @@ const TaskList = () => {
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
 
-  // Comprueba si una tarea está completada (maneja "completed" y "completada")
+  // Comprueba si una tarea está completada 
   const isDone = (task) =>
     task.completed !== undefined ? task.completed : !!task.completada;
 
@@ -51,7 +51,7 @@ const TaskList = () => {
     if (statusFilter === "completed" && !isDone(task)) return false;
     if (statusFilter === "pending" && isDone(task)) return false;
 
-    return true; // Si pasa todos los filtros, se muestra
+    return true; // Si pasa todos los filtros se muestra
   });
 
   // Cuando se hace clic en editar tarea

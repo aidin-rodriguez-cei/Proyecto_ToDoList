@@ -21,7 +21,7 @@ export const authenticateToken = (req, res, next) => {
 
   // ==========================
   // 2) Verifico el token con mi clave secreta
-  // (Si está vencido o es inválido, respondo 403; si está bien, sigo)
+  // (Si está vencido o es inválido, respondo 403; si está bien sigo)
   // ==========================
   jwt.verify(token, JWT_SECRET, (err, payload) => {
     if (err) {

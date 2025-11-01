@@ -21,7 +21,7 @@ const TaskCheckbox = ({ id, checked, onChange }) => {
         onChange={handleChange} // Llama a la función cuando se cambia el estado
         aria-label={
           checked ? "Marcar como pendiente" : "Marcar como completada"
-        } // Accesibilidad
+        } 
       />
 
       {/* Etiqueta personalizada que reemplaza el checkbox por un SVG */}

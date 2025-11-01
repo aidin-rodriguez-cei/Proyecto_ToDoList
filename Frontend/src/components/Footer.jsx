@@ -2,7 +2,7 @@ import React from "react";
 import "@/css/style.css";
 import { useUser } from "@/hooks/useUser";
 
-// Componente Footer: muestra el pie de página y el botón para crear nuevas tareas
+// Componente Footer, muestra el pie de página y el botón para crear nuevas tareas
 const Footer = ({ onAddTask }) => {
   // Hook personalizado que obtiene los datos del usuario actual
   const { user } = useUser();

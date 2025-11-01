@@ -26,8 +26,8 @@ html {
   overflow-y: auto;
 }
 
-/* Estilos base del body: tipografía, fondo y layout en columna.
-   Agrego padding-top del alto del header fijo para que no tape el contenido. */
+/* Estilos base del body: tipografía, fondo y layout en columna
+   Agrego padding-top del alto del header fijo para que no tape el contenido */
 body {
   font-family: "Nunito", "Public Sans", sans-serif;
   background-color: #f3f3f3;
@@ -46,36 +46,36 @@ button {
   cursor: pointer;
 }
 
-/* Evito que los <textarea> se estiren manualmente (para mantener el diseño) */
+/* Evito que los <textarea> se estiren manualmente  */
 textarea {
   resize: none;
 }
 
-/* Oculto los checkboxes nativos (los pinto con CSS en otro archivo) */
+/* Oculto los checkboxes nativos  */
 input[type="checkbox"] {
   display: none;
 }
 
-/* Al etiquetar el checkbox, que el puntero sea clickeable */
+/* Al etiquetar el checkbox que el puntero sea clickeable */
 input[type="checkbox"] + label {
   cursor: pointer;
 }
 
 /* ================= BASE STYLES  ================= */
-/* Contenedor común para centrar el contenido y limitar ancho */
+/* Contenedor para centrar el contenido y limitar ancho */
 .container {
   width: 80%;
   margin: 0 auto;
   font-family: "Nunito", "Public Sans", sans-serif;
 }
 
-/* Clase de utilidad para esconder elementos */
+/* Clase para esconder elementos */
 .hidden {
   display: none;
 }
 
 /* ================= HEADER ================= */
-/* Header fijo en la parte superior con sombra sutil */
+/* Header fijo en la parte superior */
 header {
   position: fixed;
   top: 0;
@@ -93,7 +93,7 @@ header {
   z-index: 1000;
 }
 
-/* Contenido interno del header: logo/título a la izquierda y menú a la derecha */
+/* Contenido del header: logo/título a la izquierda y menú a la derecha */
 header .container {
   width: 100%;
   display: flex;
@@ -128,13 +128,13 @@ header img {
   font-family: inherit;
 }
 
-/* Pequeño hover para feedback visual */
+/* Hover */
 .theme-toggle:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
 /* ================= DROPDOWN MENU ================= */
-/* Contenedor del menú desplegable (posición relativa para anclar el dropdown) */
+/* Contenedor del menú desplegable  */
 .menu-container {
   position: relative;
 }
@@ -176,7 +176,7 @@ header img {
   background-color: #f3f3f3;
 }
 
-/* Botón de cerrar el menú (X) */
+/* Botón de cerrar el menú  */
 .close-menu-icon {
   position: absolute;
   top: 20px;
@@ -212,14 +212,14 @@ header img {
 }
 
 /* ================= LAYOUT ================= */
-/* Layout base de la app: columna y mínimo alto pantalla */
+/* Layout: columna y mínimo alto pantalla */
 .app-layout {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Zona principal entre header y footer */
+/* Zona entre header y footer */
 .app-main {
   flex: 1 0 auto;
   display: flex;
@@ -237,7 +237,7 @@ header img {
   flex-direction: column;
 }
 
-/* Header dentro de páginas específicas (mantengo estilos coherentes) */
+/* Header dentro de páginas específicas  */
 .page-container header {
   background-color: #b7d9db;
   width: 100%;
@@ -253,14 +253,14 @@ header img {
 }
 
 /* ================= BACKGROUND ================= */
-/* Sección de “no hay tareas” centrada verticalmente */
+/* Sección de no hay tareas centrada verticalmente */
 .section-back {
   text-align: center;
   width: 100%;
   margin: 20% auto 10px;
 }
 
-/* Contenedor centrado para mensajes/ilustraciones */
+/* Contenedor centrado para mensajes */
 .back {
   display: flex;
   flex-direction: column;
@@ -291,7 +291,7 @@ header img {
   box-shadow: 1px 3px 10px 1px #aaa;
 }
 
-/* Cada tarea como fila con sombra y borde */
+/* Cada tarea como fila */
 .task-item {
   width: 100%;
   margin-top: 10px;
@@ -307,27 +307,27 @@ header img {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
-/* Hover suave para resaltar la tarea */
+/* Hover para resaltar la tarea */
 .task-item:hover {
   background-color: #f8f9fa;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   transform: translateY(-1px);
 }
 
-/* Espacios internos entre elementos de la tarea */
+/* Espacios entre elementos de la tarea */
 .task-item > * {
   padding: 0 5px;
   cursor: pointer;
 }
 
-/* El label (título+desc) crece para ocupar el centro de la fila */
+/* El label (título+desc) para ocupar el centro de la fila */
 .task-item > label {
   flex-grow: 2;
   margin: 0px 14px;
   font-size: 1rem;
 }
 
-/* Iconos de acción (trash, edit) */
+/* Iconos de acción (trash/edit) */
 .task-item i {
   font-size: 1.1em;
   color: #6c757d;
@@ -350,7 +350,7 @@ header img {
   padding: 8px;
 }
 
-/* Contenedor del botón borrar (alineación a la derecha) */
+/* Contenedor del botón borrar (alineado a la derecha) */
 .delete {
   float: right;
   margin-right: 10px;
@@ -362,7 +362,7 @@ header img {
   margin-bottom: 16px;
 }
 
-/* Bloques clickeables para acciones */
+/* Bloques para acciones */
 .borrar {
   margin-left: 6px;
   padding: 4px;
@@ -381,7 +381,7 @@ header img {
 }
 
 /* ================= TASK PRIORITY  ================= */
-/* Colores laterales para identificar prioridad de la tarea */
+/* Colores para identificar prioridad de la tarea */
 .high-priority {
   border-left: 4px solid #dc3545;
   background-color: rgba(220, 53, 69, 0.05);
@@ -471,7 +471,7 @@ header img {
   font-size: 16px;
 }
 
-/* Botón de cerrar formulario (icono X) */
+/* Botón de cerrar formulario */
 #form .cerrar button {
   float: right;
   position: relative;
@@ -480,7 +480,7 @@ header img {
   font-size: 1.5em;
 }
 
-/* Bloque “términos y condiciones” (alineado con su checkbox) */
+/* Bloque términos y condiciones */
 .tyc {
   display: inline-flex;
   align-items: center;
@@ -488,7 +488,7 @@ header img {
   font-size: 0.9rem;
 }
 
-/* Checkbox visible dentro de “tyc” (este sí se muestra) */
+/* Checkbox visible dentro de tyc */
 .tyc input[type="checkbox"] {
   display: inline-block;
   margin-top: 12px;
@@ -625,7 +625,7 @@ header img {
   display: inline-block;
 }
 
-/* Oculto los radios nativos (pinto el span) */
+/* Oculto los radios nativos */
 .custom-radios input[type="radio"] {
   display: none;
 }
@@ -638,7 +638,7 @@ header img {
   cursor: pointer;
 }
 
-/* “Píldoras” de las opciones */
+/* Píldoras de las opciones */
 .custom-radios input[type="radio"] + label span {
   width: 100px;
   height: 40px;
@@ -647,18 +647,18 @@ header img {
   transition: all 0.3s ease;
 }
 
-/* Sombra más marcada cuando está seleccionado */
+/* Sombra marcada cuando está seleccionado */
 .custom-radios input[type="radio"]:checked + label span {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px);
 }
 
-/* Seguridad: si hay otro input interno, lo oculto igual */
+/* Si hay otro input interno, lo oculto igual */
 .custom-radios div input {
   display: none;
 }
 
-/* Cuadritos de color mini (cuando uso icono) */
+/* Cuadritos de color mini */
 .custom-radios div label span {
   display: inline-block;
   width: 26px;
@@ -675,13 +675,13 @@ header img {
   line-height: 21px;
 }
 
-/* Imagen dentro del label (si la uso) empieza oculta */
+/* Imagen dentro del label  */
 .custom-radios label span img {
   opacity: 0;
   transition: all 0.1s ease;
 }
 
-/* Colores de ejemplo para radios personalizados */
+/* Colores para radios  */
 #color-1 + label span {
   background-color: #434343;
 }
@@ -734,7 +734,7 @@ button#add img {
 }
 
 /* ================= FOOTER ================= */
-/* Footer al final de la página, con fondo suave */
+/* Footer al final de la página */
 footer {
   position: relative;
   width: 100%;
@@ -755,7 +755,7 @@ footer p {
   font-size: 12px !important;
 }
 
-/* Botón dentro del footer (si aparece) */
+/* Botón dentro del footer */
 footer button {
   float: right;
   margin-right: 20px;
@@ -815,7 +815,7 @@ footer button {
   border-color: #b7d9db;
 }
 
-/* En la tarjeta, fuerza un contenedor de acciones flexible */
+/* En la tarjeta fuerza un contenedor de acciones flexible */
 .home-public-main section .flex {
   display: flex;
   flex-wrap: wrap;

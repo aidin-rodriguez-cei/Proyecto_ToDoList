@@ -46,7 +46,7 @@ const Filters = ({ onFilter }) => {
       >
         <option value="">Todas</option>
         <option value="0" style={{ color: "#868e96" }}>
-          ⚪ Sin prioridad
+          ● Sin prioridad
         </option>
         <option value="1" style={{ color: "#69db7c" }}>
           ● Baja

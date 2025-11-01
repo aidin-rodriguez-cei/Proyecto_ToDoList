@@ -1,4 +1,3 @@
-/* ================= IMPORTANTE ================= */
 /* Activamos las utilidades y configuraciones base de Tailwind */
 @tailwind base;
 @tailwind components;
@@ -11,39 +10,39 @@
   color-scheme: light; /* evita que Safari ponga inputs oscuros */
 }
 
-/* Cuando tu app activa el modo oscuro (tu clase .dark) */
+/* Cuando se activa el modo oscuro */
 .dark {
   color-scheme: dark;
 }
 
 
-/* Aplicamos box-sizing para que el padding no afecte el ancho total */
+/* Box-sizing para que el padding no afecte el ancho total */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
-/* El HTML, body y el root de React ocupan toda la altura de la pantalla */
+/* Para ocupar la altura de la pantalla */
 html, body, #root {
   height: 100%;
 }
 
 /* Estilos base del body */
 body {
-  margin: 0; /* Quitamos márgenes por defecto */
-  line-height: 1.5; /* Mejor legibilidad del texto */
+  margin: 0; 
+  line-height: 1.5; 
 
-  /* Suavizado de fuentes en diferentes sistemas */
+  /* Para suavizar las fuentes en diferentes sistemas */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* Fuente principal de la app */
+  /* Fuente principal */
   font-family: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 /* ================= ENLACES ================= */
-/* Quitamos subrayado y usamos el color actual del texto */
+/* Para quitar subrayado y el color del texto */
 a { 
   color: inherit; 
   text-decoration: none; 

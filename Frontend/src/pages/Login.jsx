@@ -1,7 +1,7 @@
 // ============================================================
-// Descripción: Permite al usuario iniciar sesión.
+// Permite al usuario iniciar sesión
 // Al hacer login exitoso, guarda el usuario en localStorage
-// y redirige a la página principal. Solo agrego comentarios.
+// y redirige a la página principal. Solo agrego comentarios
 // ============================================================
 
 import React, { useState, useContext } from "react";

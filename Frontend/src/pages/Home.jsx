@@ -1,5 +1,5 @@
 // ============================================================
-// Descripción: Pantalla principal. Muestra una vista pública
+// Pantalla principal. Muestra una vista pública
 // si no hay sesión y la vista privada (lista de tareas) si el
 // usuario está autenticado. 
 // ============================================================
@@ -35,10 +35,10 @@ const Home = () => {
 
   // ------------------------------------------------------------
   // Efecto: verificación de sesión
-  // 1) Revisa si hay datos en localStorage (isAuthenticated)
-  // 2) Si hay, valida el token contra el backend (validateToken)
-  // 3) Si no es válido, hace logout y apaga la sesión
-  // 4) Escucha el evento "auth-changed" para revalidar
+  // 1. Revisa si hay datos en localStorage (isAuthenticated)
+  // 2. Si hay, valida el token contra el backend (validateToken)
+  // 3. Si no es válido, hace logout y apaga la sesión
+  // 4. Escucha el evento "auth-changed" para revalidar
   // ------------------------------------------------------------
   useEffect(() => {
     const checkAuth = async () => {
@@ -80,8 +80,7 @@ const Home = () => {
 
   // ============================
   // Vista pública (sin sesión)
-  // Si no hay usuario logueado, muestro una tarjeta
-  // con enlaces a Login y Registro.
+  // Si no hay usuario logueado, muestro una tarjeta con enlaces a Login y Registro
   // ============================
   if (!isLogged) {
     return (
@@ -112,8 +111,8 @@ const Home = () => {
   // ============================
   // Vista privada (con sesión)
   // Envuelvo en TasksProvider para disponer de estado
-  // global de tareas; uso `key` con el username para resetear
-  // el estado si cambia el usuario.
+  // global de tareas, uso `key` con el username para resetear
+  // el estado si cambia el usuario
   // ============================
   return (
     <TasksProvider key={user?.username || "guest"}>
